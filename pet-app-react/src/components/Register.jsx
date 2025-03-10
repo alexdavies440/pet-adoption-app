@@ -1,25 +1,22 @@
 import { useState } from "react";
 
-export default function Login() {
+export default function Register() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const [arr, setArr] = useState([]);
-
     function handleUsernameChange(event) {
         setUsername(event.target.value);
     }
-    
+
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        const url = "http://localhost:8080/login";
 
-        fetch(url, {
+        fetch("http://localhost:8080/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,26 +26,21 @@ export default function Login() {
                 "password": password,
             })
         })
-        .then(
-            fetch("http://localhost:8080/all-users")
-            .then(res => res.json())
-            .then(data => console.log(data))
-        )
     }
 
     return (
-        <form action="/login" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="username"></label>
-                <input type="text" name="username" value={username} onChange={handleUsernameChange}/>
+                <input type="text" name="username" value={username} onChange={handleUsernameChange} />
             </div>
 
             <div>
                 <label htmlFor="password"></label>
-                <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
+                <input type="password" name="password" value={password} onChange={handlePasswordChange} />
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
     );
 }

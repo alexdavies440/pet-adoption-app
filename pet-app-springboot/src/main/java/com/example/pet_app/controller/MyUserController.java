@@ -20,20 +20,38 @@ public class MyUserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/test")
-    public List<MyUser> test() {
-        MyUser test = new MyUser("test_user", "test_password");
-        myUserRepository.save(test);
+    public String test() {
+        return "Hello!";
+    }
 
+    @GetMapping("/all-users")
+    public List<MyUser> returnAllUsers() {
         return myUserRepository.findAll();
     }
 
     @PostMapping("/register")
-    public void login(@RequestBody MyUser user) {
+    public void register(@RequestBody MyUser user) {
         String username = user.getUsername();
         String password = passwordEncoder.encode(user.getPassword());
         MyUser newUser = new MyUser(username, password);
         myUserRepository.save(newUser);
         System.out.println("User " + newUser.getUsername() + " registered");
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody MyUser user) {
+        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
+        String message = "Invalid credentials";
+        if (optUser.isPresent()) {
+            MyUser myUser = optUser.get();
+            message = "User " + optUser.get().getUsername().toUpperCase() + " found, but password was incorrect.";
+            if (passwordEncoder.matches(user.getPassword(), myUser.getPassword())) {
+                message = "User " + optUser.get().getUsername().toUpperCase() + " found. Authentication successful";
+            }
+        }
+        System.out.println("MESSAGE:");
+        System.out.println(message);
+        return message;
     }
 
 }
