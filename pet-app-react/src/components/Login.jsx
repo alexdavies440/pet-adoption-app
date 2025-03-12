@@ -19,6 +19,7 @@ export default function Login() {
         event.preventDefault();
 
         fetch("http://localhost:8080/test2", {
+            credentials: 'include',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,10 +30,10 @@ export default function Login() {
                     "password": password
                 }
             )
-            
+
         })
-        .then(res => res.text())
-        .then(data => console.log(data))
+            .then(res => res.text())
+            .then(data => console.log(data))
     }
 
     return (
