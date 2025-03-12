@@ -17,23 +17,17 @@ export default function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        const url = "http://localhost:8080/login";
 
-        fetch(url, {
+        fetch("http://localhost:8080/signin", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 "username": username,
                 "password": password,
             })
         })
-        .then(
-            fetch("http://localhost:8080/all-users")
-            .then(res => res.json())
-            .then(data => console.log(data))
-        )
     }
 
     return (

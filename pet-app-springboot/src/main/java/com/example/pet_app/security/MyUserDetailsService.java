@@ -15,16 +15,13 @@ import java.util.Optional;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private final MyUserRepository myUserRepository;
-
-    public MyUserDetailsService(MyUserRepository myUserRepository) {
-        this.myUserRepository = myUserRepository;
-    }
+    private MyUserRepository myUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<MyUser> optUser = myUserRepository.findByUsername(username);
+
         if (optUser.isPresent()) {
             MyUser myUser = optUser.get();
             return User.builder()
