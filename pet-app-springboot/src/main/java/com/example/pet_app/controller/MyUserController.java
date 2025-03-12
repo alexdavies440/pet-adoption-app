@@ -27,15 +27,22 @@ public class MyUserController {
         return "Hello!";
     }
 
-//    @PostMapping("test2")
-//    public String test(@RequestBody String test) {
-//        Optional<MyUser> optionalMyUser  = myUserRepository.findByUsername(test);
-//        if (optionalMyUser.isPresent()) {
-//            return "User found";
-//        } else {
-//            return "User not found";
-//        }
-//    }
+    @PostMapping("test2")
+    public String test(@RequestBody MyUser test) {
+        // This working but not "/login" indicates to me that data is being sent and read correctly
+        // but something is missing because this only works if this path is public,
+        // suggesting that the login credentials alone are not enough
+        Optional<MyUser> optionalMyUser = myUserRepository.findByUsername(test.getUsername());
+
+        if (optionalMyUser.isPresent() && passwordEncoder.matches(
+                test.getPassword(),
+                optionalMyUser.get().getPassword())
+        ) {
+            return "User found, password correct";
+        } else {
+            return "User not found";
+        }
+    }
 
     @GetMapping("/all-users")
     public List<MyUser> returnAllUsers() {
@@ -52,20 +59,20 @@ public class MyUserController {
     }
 
 
-//    @PostMapping("/login")
-//    public String login(@RequestBody MyUser user) {
-//        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
-//        String message = "Invalid credentials";
-//        if (optUser.isPresent()) {
-//            MyUser myUser = optUser.get();
-//            message = "User " + optUser.get().getUsername().toUpperCase() + " found, but password was incorrect.";
-//            if (passwordEncoder.matches(user.getPassword(), myUser.getPassword())) {
-//                message = "User " + optUser.get().getUsername().toUpperCase() + " found. Authentication successful";
-//            }
-//        }
-//        System.out.println("MESSAGE:");
-//        System.out.println(message);
-//        return message;
-//    }
+    @PostMapping("/login")
+    public String login(@RequestBody MyUser user) {
+        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
+        String message = "Invalid credentials";
+        if (optUser.isPresent()) {
+            MyUser myUser = optUser.get();
+            message = "User " + optUser.get().getUsername().toUpperCase() + " found, but password was incorrect.";
+            if (passwordEncoder.matches(user.getPassword(), myUser.getPassword())) {
+                message = "User " + optUser.get().getUsername().toUpperCase() + " found. Authentication successful";
+            }
+        }
+        System.out.println("MESSAGE:");
+        System.out.println(message);
+        return message;
+    }
 
 }

@@ -10,7 +10,7 @@ export default function Login() {
     function handleUsernameChange(event) {
         setUsername(event.target.value);
     }
-    
+
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
@@ -18,28 +18,33 @@ export default function Login() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        fetch("http://localhost:8080/signin", {
+        fetch("http://localhost:8080/test2", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                "username": username,
-                "password": password,
-            })
+            body: JSON.stringify(
+                {
+                    "username": username,
+                    "password": password
+                }
+            )
+            
         })
+        .then(res => res.text())
+        .then(data => console.log(data))
     }
 
     return (
-        <form action="/login" onSubmit={handleSubmit}>
+        <form action="/login" onSubmit={handleSubmit} method="POST">
             <div>
                 <label htmlFor="username"></label>
-                <input type="text" name="username" value={username} onChange={handleUsernameChange}/>
+                <input type="text" name="username" value={username} onChange={handleUsernameChange} />
             </div>
 
             <div>
                 <label htmlFor="password"></label>
-                <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
+                <input type="password" name="password" value={password} onChange={handlePasswordChange} />
             </div>
 
             <button type="submit">Login</button>
