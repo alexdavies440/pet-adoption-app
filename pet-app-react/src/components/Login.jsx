@@ -15,29 +15,37 @@ export default function Login() {
         setPassword(event.target.value);
     }
 
+    function getPrincipal(event) {
+        event.preventDefault()
+        fetch("http://localhost:8080/principal", {
+            headers: {
+                'Authorization' : 'Basic ' + btoa(username + ':' + password),
+            }
+        })
+        .then(res => res.text())
+        .then(data => console.log(data))
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
 
-        fetch("http://localhost:8080/test2", {
-            credentials: 'include',
+        fetch("http://localhost:8080/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
-                {
-                    "username": username,
-                    "password": password
-                }
-            )
-
+            body: JSON.stringify({
+                "username": username,
+                "password": password,
+            })
         })
             .then(res => res.text())
             .then(data => console.log(data))
+            .catch(error => console.log(error))
     }
 
     return (
-        <form action="/login" onSubmit={handleSubmit} method="POST">
+        <form onSubmit={handleSubmit} method="POST">
             <div>
                 <label htmlFor="username"></label>
                 <input type="text" name="username" value={username} onChange={handleUsernameChange} />
@@ -49,6 +57,7 @@ export default function Login() {
             </div>
 
             <button type="submit">Login</button>
+            <button onClick={getPrincipal}>Get Principal</button>
         </form>
     );
 }

@@ -6,7 +6,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +29,34 @@ public class MyUserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping("/login")
+    public String login(@RequestBody MyUser user) {
+
+        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
+
+        if (optUser.isEmpty()) {
+            return "User not found";
+        }
+        else {
+            UsernamePasswordAuthenticationToken token =
+                    new UsernamePasswordAuthenticationToken(
+                            user.getUsername(),
+                            user.getPassword()
+                    );
+            Authentication authentication = authenticationManager.authenticate(token);
+
+            boolean authenticationStatus = authentication.isAuthenticated();
+            if (authenticationStatus) {
+                return "Welcome, " + user.getUsername();
+            } else {
+                return "Login failure";
+            }
+        }
+    }
+
     @GetMapping("/test")
     public String test() {
         return "Hello!";
@@ -29,9 +64,7 @@ public class MyUserController {
 
     @PostMapping("test2")
     public String test(@RequestBody MyUser test) {
-        // This working but not "/login" indicates to me that data is being sent and read correctly
-        // but something is missing because this only works if this path is public,
-        // suggesting that the login credentials alone are not enough
+
         Optional<MyUser> optionalMyUser = myUserRepository.findByUsername(test.getUsername());
 
         if (optionalMyUser.isPresent() && passwordEncoder.matches(
@@ -58,21 +91,10 @@ public class MyUserController {
         System.out.println("User " + newUser.getUsername() + " registered");
     }
 
-
-    @PostMapping("/login")
-    public String login(@RequestBody MyUser user) {
-        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
-        String message = "Invalid credentials";
-        if (optUser.isPresent()) {
-            MyUser myUser = optUser.get();
-            message = "User " + optUser.get().getUsername().toUpperCase() + " found, but password was incorrect.";
-            if (passwordEncoder.matches(user.getPassword(), myUser.getPassword())) {
-                message = "User " + optUser.get().getUsername().toUpperCase() + " found. Authentication successful";
-            }
-        }
-        System.out.println("MESSAGE:");
-        System.out.println(message);
-        return message;
+    @GetMapping("/principal")
+    public String test3() {
+        // Should return current user logged in
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
-
 }
