@@ -4,6 +4,7 @@ export default function Register() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [verifyPassword, setVerifyPassword] = useState("");
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -11,6 +12,10 @@ export default function Register() {
 
     function handlePasswordChange(event) {
         setPassword(event.target.value);
+    }
+
+    function handleVerifyPasswordChange(event) {
+        setVerifyPassword(event.target.value)
     }
 
     function handleSubmit(event) {
@@ -24,20 +29,28 @@ export default function Register() {
             body: JSON.stringify({
                 "username": username,
                 "password": password,
+                "verifyPassword": verifyPassword
             })
         })
+        .then(res => res.text())
+        .then(data => console.log(data))
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label htmlFor="username"></label>
+                <label htmlFor="username">Username </label>
                 <input type="text" name="username" value={username} onChange={handleUsernameChange} />
             </div>
 
             <div>
-                <label htmlFor="password"></label>
+                <label htmlFor="password">Password </label>
                 <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+            </div>
+
+            <div>
+                <label htmlFor="verifyPassword">Verify Password </label>
+                <input type="password" name="verifyPassword" value={verifyPassword} onChange={handleVerifyPasswordChange} />
             </div>
 
             <button type="submit">Register</button>

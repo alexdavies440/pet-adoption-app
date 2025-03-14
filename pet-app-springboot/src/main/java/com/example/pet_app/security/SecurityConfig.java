@@ -48,13 +48,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/principal").permitAll()
                         .anyRequest().authenticated()
+
                 )
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login.html").permitAll()
-//                        .loginProcessingUrl("/perform_login")
-                )
+                .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

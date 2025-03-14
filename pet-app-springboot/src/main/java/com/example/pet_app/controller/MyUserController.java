@@ -1,8 +1,12 @@
 package com.example.pet_app.controller;
 
+import com.example.pet_app.dto.LoginDto;
+import com.example.pet_app.dto.RegisterDto;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +36,33 @@ public class MyUserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/login")
-    public String login(@RequestBody MyUser user) {
+    @PostMapping("/register")
+    public String registerNewUser(@RequestBody @Valid RegisterDto registerDto) {
 
-        Optional<MyUser> optUser = myUserRepository.findByUsername(user.getUsername());
+        String username = registerDto.getUsername();
+
+        Optional<MyUser> optUser = myUserRepository.findByUsername(registerDto.getUsername());
+
+        if (optUser.isPresent()) {
+            return "User already exists";
+        }
+        else if (registerDto.getPassword().equals(registerDto.getVerifyPassword())) {
+
+            String password = passwordEncoder.encode(registerDto.getPassword());
+            MyUser newUser = new MyUser(username, password);
+            myUserRepository.save(newUser);
+            System.out.println("User " + newUser.getUsername() + " registered");
+            return "User " + newUser.getUsername() + " registered";
+        }
+        else {
+            return "Passwords must match";
+        }
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody @Valid LoginDto loginDto) {
+
+        Optional<MyUser> optUser = myUserRepository.findByUsername(loginDto.getUsername());
 
         if (optUser.isEmpty()) {
             return "User not found";
@@ -43,14 +70,15 @@ public class MyUserController {
         else {
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(
-                            user.getUsername(),
-                            user.getPassword()
+                            loginDto.getUsername(),
+                            loginDto.getPassword()
                     );
+
             Authentication authentication = authenticationManager.authenticate(token);
 
             boolean authenticationStatus = authentication.isAuthenticated();
             if (authenticationStatus) {
-                return "Welcome, " + user.getUsername();
+                return "Welcome, " + loginDto.getUsername();
             } else {
                 return "Login failure";
             }
@@ -80,15 +108,6 @@ public class MyUserController {
     @GetMapping("/all-users")
     public List<MyUser> returnAllUsers() {
         return myUserRepository.findAll();
-    }
-
-    @PostMapping("/register")
-    public void register(@RequestBody MyUser user) {
-        String username = user.getUsername();
-        String password = passwordEncoder.encode(user.getPassword());
-        MyUser newUser = new MyUser(username, password);
-        myUserRepository.save(newUser);
-        System.out.println("User " + newUser.getUsername() + " registered");
     }
 
     @GetMapping("/principal")
