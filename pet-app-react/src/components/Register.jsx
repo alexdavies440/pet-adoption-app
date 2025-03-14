@@ -39,17 +39,17 @@ export default function Register() {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label htmlFor="username">Username </label>
+                <label htmlFor="username">Username: </label>
                 <input type="text" name="username" value={username} onChange={handleUsernameChange} />
             </div>
 
             <div>
-                <label htmlFor="password">Password </label>
+                <label htmlFor="password">Password: </label>
                 <input type="password" name="password" value={password} onChange={handlePasswordChange} />
             </div>
 
             <div>
-                <label htmlFor="verifyPassword">Verify Password </label>
+                <label htmlFor="verifyPassword">Verify Password: </label>
                 <input type="password" name="verifyPassword" value={verifyPassword} onChange={handleVerifyPasswordChange} />
             </div>
 
