@@ -17,7 +17,7 @@ export default function Login() {
 
     function getPrincipal(event) {
         event.preventDefault()
-        fetch("http://localhost:8080/principal", {
+        fetch("http://localhost:8080/test", {
             // headers: {
             //     'Authorization' : 'Basic ' + btoa(username + ':' + password),
             // }

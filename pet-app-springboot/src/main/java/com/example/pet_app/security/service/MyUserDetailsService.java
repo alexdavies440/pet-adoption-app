@@ -1,4 +1,4 @@
-package com.example.pet_app.security;
+package com.example.pet_app.security.service;
 
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;

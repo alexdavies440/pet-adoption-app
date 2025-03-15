@@ -4,6 +4,7 @@ import com.example.pet_app.dto.LoginDto;
 import com.example.pet_app.dto.RegisterDto;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,8 +88,8 @@ public class MyUserController {
     }
 
     @GetMapping("/test")
-    public String test() {
-        return "Hello!";
+    public String test(Principal principal) {
+        return "Hello! " + principal.getName();
     }
 
     @PostMapping("test2")
@@ -111,9 +113,10 @@ public class MyUserController {
     }
 
     @GetMapping("/principal")
-    public String test3() {
+    public String test3(Principal principal) {
         // Should return current user logged in
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
+
+        return principal.getName();
     }
+
 }
