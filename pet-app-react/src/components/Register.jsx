@@ -34,6 +34,9 @@ export default function Register() {
         })
         .then(res => res.text())
         .then(data => console.log(data))
+        .then(setUsername(""))
+        .then(setPassword(""))
+        .then(setVerifyPassword(""))
     }
 
     return (

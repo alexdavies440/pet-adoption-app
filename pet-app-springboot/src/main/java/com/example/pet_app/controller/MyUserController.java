@@ -38,55 +38,6 @@ public class MyUserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/register")
-    public String registerNewUser(@RequestBody @Valid RegisterDto registerDto) {
-
-        String username = registerDto.getUsername();
-
-        Optional<MyUser> optUser = myUserRepository.findByUsername(registerDto.getUsername());
-
-        if (optUser.isPresent()) {
-            return "User already exists";
-        }
-        else if (registerDto.getPassword().equals(registerDto.getVerifyPassword())) {
-
-            String password = passwordEncoder.encode(registerDto.getPassword());
-            MyUser newUser = new MyUser(username, password);
-            myUserRepository.save(newUser);
-            System.out.println("User " + newUser.getUsername() + " registered");
-            return "User " + newUser.getUsername() + " registered";
-        }
-        else {
-            return "Passwords must match";
-        }
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestBody @Valid LoginDto loginDto) {
-
-        Optional<MyUser> optUser = myUserRepository.findByUsername(loginDto.getUsername());
-
-        if (optUser.isEmpty()) {
-            return "User not found";
-        }
-        else {
-            UsernamePasswordAuthenticationToken token =
-                    new UsernamePasswordAuthenticationToken(
-                            loginDto.getUsername(),
-                            loginDto.getPassword()
-                    );
-
-            Authentication authentication = authenticationManager.authenticate(token);
-
-            boolean authenticationStatus = authentication.isAuthenticated();
-            if (authenticationStatus) {
-                return "Welcome, " + loginDto.getUsername();
-            } else {
-                return "Login failure";
-            }
-        }
-    }
-
     @GetMapping("/test")
     public String test(Principal principal) {
         return "Hello! " + principal.getName();

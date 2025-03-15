@@ -4,6 +4,7 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [jwt, setJwt] = useState("");
 
     const [arr, setArr] = useState([]);
 
@@ -18,9 +19,9 @@ export default function Login() {
     function getPrincipal(event) {
         event.preventDefault()
         fetch("http://localhost:8080/test", {
-            // headers: {
-            //     'Authorization' : 'Basic ' + btoa(username + ':' + password),
-            // }
+            headers: {
+                'Authorization' : 'Bearer ' + jwt,
+            }
         })
         .then(res => res.text())
         .then(data => console.log(data))
@@ -40,7 +41,10 @@ export default function Login() {
             })
         })
             .then(res => res.text())
-            .then(data => console.log(data))
+            .then(data => setJwt(data))
+            .then(console.log(jwt))
+            .then(setUsername(""))
+            .then(setPassword(""))
             .catch(error => console.log(error))
     }
 
