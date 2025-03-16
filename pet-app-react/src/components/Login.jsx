@@ -42,12 +42,11 @@ export default function Login() {
         })
             .then(res => res.text())
             .then(data => setJwt(data))
-            .then(console.log(jwt))
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
     }
-
+    
     return (
         <form onSubmit={handleSubmit} method="POST">
             <div>
