@@ -4,6 +4,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Header from './components/Header'
+import Profile from './components/Profile'
 import './App.css'
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home jwt={jwt} />} />
           <Route path='/login' element={
             <Login
               jwt={jwt}
@@ -24,6 +25,7 @@ function App() {
           }
           />
           <Route path='/register' element={<Register />} />
+          <Route path='/profile' element={<Profile jwt={jwt} />} />
         </Routes>
       </BrowserRouter>
     </>

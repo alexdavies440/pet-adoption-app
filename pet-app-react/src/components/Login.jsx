@@ -21,7 +21,7 @@ export default function Login({ jwt, setJwt }) {
         fetch("http://localhost:8080/test", {
             headers: {
                 'Authorization': 'Bearer ' + jwt,
-            }
+            },
         })
             .then(res => res.text())
             .then(data => console.log(data))
@@ -48,7 +48,7 @@ export default function Login({ jwt, setJwt }) {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Login</h1>
             <form onSubmit={handleSubmit} method="POST">
                 <div>
@@ -62,8 +62,8 @@ export default function Login({ jwt, setJwt }) {
                 </div>
 
                 <button type="submit">Login</button>
-                <button onClick={getPrincipal}>Get Principal</button>
             </form>
+            <a href="/register">Register for an account</a>
         </div>
 
     );

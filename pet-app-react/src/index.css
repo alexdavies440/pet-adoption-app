@@ -5,7 +5,8 @@
 
   color-scheme: light dark;
   color: rgba(95, 95, 95, 0.87);
-  background-color: rgb(200, 233, 239);
+  /* background-color: rgb(200, 233, 239); */
+  background-image: url("https://media.istockphoto.com/id/1388281684/vector/seamless-dog-pattern-with-paw-prints-bones-hearts-and-balls-cat-foot-texture-pattern-with.jpg?s=612x612&w=0&k=20&c=St1dISSnU7zobbE4y1VWD7hhEnWcUGriSVZ5ocoSYWU=");
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,7 +24,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 0px;
   display: flex;
   /* place-items: center; */
   min-width: 320px;
@@ -36,53 +37,61 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.5em;
-  margin: 1em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: rgb(180, 234, 255);
+  color: #646cff;
+  padding: 0.7rem;
+  margin: 2rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: inherit;
+  font-weight: bold;
+  transition: 0.5s ease;
 }
 
 input {
   font-size: 1.2em;
+  color: rgba(95, 95, 95, 0.87);
+  background-color: rgb(180, 234, 255);
+  border-radius: 10px;
+  padding: 0.3rem;
 }
 
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: rgb(137, 215, 243);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.navbar {
-  
-}
+/* .navbar {
+  background-color: rgb(180, 234, 255);
+  display: inline-block;
+  padding: 1rem;
+} */
 
 .nav-item {
-  margin: 1rem;
+  background-color: rgb(180, 234, 255);
+  padding: 0.7rem;
+  margin: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: bold;
+  transition: 0.5s ease;
+}
+
+.nav-item:hover {
+  background-color: rgb(137, 215, 243);
 }
 
 .form-item {
   display: block;
+}
+
+.container {
+  background-color: rgb(255, 255, 255);
+  padding: 2rem;
+  margin: 2rem;
+  /* border: solid 1px; */
+  box-shadow: 0 0 5px;
+  border-radius: 20px;
 }

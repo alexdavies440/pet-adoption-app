@@ -40,7 +40,7 @@ export default function Register() {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Join Us!</h1>
             <form onSubmit={handleSubmit}>
                 <div>
