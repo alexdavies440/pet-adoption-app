@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header jwt={jwt} />
         <Routes>
           <Route path='/' element={<Home jwt={jwt} />} />
           <Route path='/login' element={

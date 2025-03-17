@@ -18,6 +18,11 @@ export default function Profile({ jwt }) {
             .then(data => setUsername(data))
     }
     return (
-        <h1 className="container">Welcome {username.toUpperCase()}</h1>
+        <div>
+            {jwt !== "" && <h1 className="container">Welcome, {username.toUpperCase()}</h1>}
+            {jwt === "" && <h1 className="container">Please sign in</h1>}
+        </div>
+        
+        
     );
 }
