@@ -32,31 +32,34 @@ export default function Register() {
                 "verifyPassword": verifyPassword
             })
         })
-        .then(res => res.text())
-        .then(data => console.log(data))
-        .then(setUsername(""))
-        .then(setPassword(""))
-        .then(setVerifyPassword(""))
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .then(setUsername(""))
+            .then(setPassword(""))
+            .then(setVerifyPassword(""))
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="username">Username: </label>
-                <input type="text" name="username" value={username} onChange={handleUsernameChange} />
-            </div>
+        <div>
+            <h1>Join Us!</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label className="form-item" htmlFor="username">Username: </label>
+                    <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                </div>
 
-            <div>
-                <label htmlFor="password">Password: </label>
-                <input type="password" name="password" value={password} onChange={handlePasswordChange} />
-            </div>
+                <div>
+                    <label className="form-item" htmlFor="password">Password: </label>
+                    <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+                </div>
 
-            <div>
-                <label htmlFor="verifyPassword">Verify Password: </label>
-                <input type="password" name="verifyPassword" value={verifyPassword} onChange={handleVerifyPasswordChange} />
-            </div>
+                <div>
+                    <label className="form-item" htmlFor="verifyPassword">Verify Password: </label>
+                    <input type="password" name="verifyPassword" value={verifyPassword} onChange={handleVerifyPasswordChange} />
+                </div>
 
-            <button type="submit">Register</button>
-        </form>
+                <button type="submit">Register</button>
+            </form>
+        </div>
     );
 }
