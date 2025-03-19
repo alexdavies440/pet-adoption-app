@@ -9,7 +9,7 @@ export default function Home({ jwt }) {
     }, [])
 
     function getAllUsers() {
-        fetch("http://localhost:8080/all-users", {
+        fetch("http://localhost:8080/", {
             headers: {
                 'Authorization': 'Bearer ' + jwt,
             },
@@ -28,10 +28,6 @@ export default function Home({ jwt }) {
                     </ul>
                 ))}
             </div>
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
             <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
             <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
             <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />

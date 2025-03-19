@@ -38,27 +38,7 @@ public class MyUserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/test")
-    public String test(Principal principal) {
-        return "Hello! " + principal.getName();
-    }
-
-    @PostMapping("test2")
-    public String test(@RequestBody MyUser test) {
-
-        Optional<MyUser> optionalMyUser = myUserRepository.findByUsername(test.getUsername());
-
-        if (optionalMyUser.isPresent() && passwordEncoder.matches(
-                test.getPassword(),
-                optionalMyUser.get().getPassword())
-        ) {
-            return "User found, password correct";
-        } else {
-            return "User not found";
-        }
-    }
-
-    @GetMapping("/all-users")
+    @GetMapping("/")
     public List<MyUser> returnAllUsers() {
         return myUserRepository.findAll();
     }
@@ -68,6 +48,11 @@ public class MyUserController {
         // Should return current user logged in
 
         return principal.getName();
+    }
+
+    @GetMapping("/test")
+    public String test(Principal principal) {
+        return "Hello! " + principal.getName();
     }
 
 }

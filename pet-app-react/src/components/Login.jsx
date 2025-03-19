@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink, Link } from "react-router";
 
 export default function Login({ jwt, setJwt }) {
 
@@ -63,7 +64,8 @@ export default function Login({ jwt, setJwt }) {
 
                 <button type="submit">Login</button>
             </form>
-            <a href="/register">Register for an account</a>
+            {/* <a href="/register">Register for an account</a> */}
+            <Link className="link" to="/register">Register for an account</Link>
         </div>
 
     );
