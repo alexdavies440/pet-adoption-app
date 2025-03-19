@@ -19,7 +19,8 @@ a {
   transition: 0.5s ease;
 }
 
-a:hover {
+.link:hover {
+  color: rgb(50, 172, 190);
 }
 
 body {
@@ -38,7 +39,7 @@ button {
   color: rgb(26, 105, 119);
   padding: 0.7rem;
   margin: 2rem;
-  border: 2px solid rgb(68, 152, 166);;
+  border: 2px solid rgb(68, 152, 166);
   border-radius: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: inherit;
@@ -51,7 +52,7 @@ input {
   font-weight: bold;
   color: rgb(26, 105, 119);
   background-color: rgb(184, 233, 239);
-  border: 2px solid rgb(68, 152, 166);;
+  border: 2px solid rgb(68, 152, 166);
   border-radius: 10px;
   padding: 0.3rem;
 }
@@ -102,4 +103,22 @@ button:hover {
   padding: 3rem;
   border: solid 1px;
   border-radius: 20px;
+}
+
+.profile {
+  max-width: fit-content;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  background-color: rgb(255, 255, 255);
+  padding: 3rem;
+  border: solid 1px;
+  border-radius: 20px;
+}
+
+.profile-header {
+  text-align: left;
+  border-bottom: 2px solid;
+  padding: 1rem;
 }
