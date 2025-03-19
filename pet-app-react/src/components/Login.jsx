@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { NavLink, Link } from "react-router";
 
-export default function Login() {
+export default function Login({ jwt, setJwt }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [jwt, setJwt] = useState("");
+    // const [jwt, setJwt] = useState("");
 
     const [arr, setArr] = useState([]);
 
@@ -20,11 +21,11 @@ export default function Login() {
         event.preventDefault()
         fetch("http://localhost:8080/test", {
             headers: {
-                'Authorization' : 'Bearer ' + jwt,
-            }
+                'Authorization': 'Bearer ' + jwt,
+            },
         })
-        .then(res => res.text())
-        .then(data => console.log(data))
+            .then(res => res.text())
+            .then(data => console.log(data))
     }
 
     function handleSubmit(event) {
@@ -42,26 +43,30 @@ export default function Login() {
         })
             .then(res => res.text())
             .then(data => setJwt(data))
-            .then(console.log(jwt))
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
     }
 
     return (
-        <form onSubmit={handleSubmit} method="POST">
-            <div>
-                <label htmlFor="username">Username: </label>
-                <input type="text" name="username" value={username} onChange={handleUsernameChange} />
-            </div>
+        <div className="container">
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit} method="POST">
+                <div>
+                    <label className="form-item" htmlFor="username">Username: </label>
+                    <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                </div>
 
-            <div>
-                <label htmlFor="password">Password: </label>
-                <input type="password" name="password" value={password} onChange={handlePasswordChange} />
-            </div>
+                <div>
+                    <label className="form-item" htmlFor="password">Password: </label>
+                    <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+                </div>
 
-            <button type="submit">Login</button>
-            <button onClick={getPrincipal}>Get Principal</button>
-        </form>
+                <button type="submit">Login</button>
+            </form>
+            {/* <a href="/register">Register for an account</a> */}
+            <Link className="link" to="/register">Register for an account</Link>
+        </div>
+
     );
 }
