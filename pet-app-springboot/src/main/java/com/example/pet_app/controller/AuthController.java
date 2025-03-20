@@ -4,14 +4,13 @@ import com.example.pet_app.dto.LoginDto;
 import com.example.pet_app.dto.RegisterDto;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
-import com.example.pet_app.security.service.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +30,6 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private JwtDecoder jwtDecoder;
 
     @PostMapping("/register")
     public String registerNewUser(@RequestBody @Valid RegisterDto registerDto) {
@@ -62,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody @Valid LoginDto loginDto) {
+    public String login(@RequestBody @Valid LoginDto loginDto, HttpServletRequest request) {
 
         Optional<MyUser> optUser = myUserRepository.findByUsername(loginDto.getUsername());
 
@@ -80,12 +73,12 @@ public class AuthController {
 
             boolean authenticationStatus = authentication.isAuthenticated();
             if (authenticationStatus) {
-                String jwt = jwtService.generateToken(authentication);
-//                return jwtDecoder.decode(jwt).getSubject();
-                return jwt;
+
+                return token.getName();
             } else {
                 return "Login failure";
             }
         }
     }
+
 }

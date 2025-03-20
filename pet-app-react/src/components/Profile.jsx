@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Profile({ jwt }) {
+export default function Profile() {
 
     const [username, setUsername] = useState("");
 
@@ -11,7 +11,7 @@ export default function Profile({ jwt }) {
     function getPrincipal() {
         fetch("http://localhost:8080/principal", {
             headers: {
-                'Authorization': 'Bearer ' + jwt,
+                // 'Authorization': 'Bearer ' + jwt,
             },
         })
             .then(res => res.text())
@@ -19,8 +19,7 @@ export default function Profile({ jwt }) {
     }
     return (
         <div className="profile">
-            {jwt === "" && <h1>Please sign in</h1>}
-            {jwt !== "" &&
+            
             <div>
             <h1 className="profile-header">{username.toUpperCase()}</h1>
                 <p>
@@ -33,7 +32,7 @@ export default function Profile({ jwt }) {
                 Suspendisse lobortis nec quam ut sodales. Phasellus non nisi id dolor ornare imperdiet ut vitae leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin nec bibendum metus. Nam sodales ullamcorper velit, vitae rhoncus tellus interdum non. Suspendisse arcu ante, aliquet sed rutrum at, faucibus ut massa. Sed sed hendrerit mi, eu dapibus elit. Aenean eu egestas enim. Donec vulputate urna dui, quis pretium neque suscipit at. Etiam elit magna, porta eget finibus at, mollis eu ligula. In ut orci id augue ultrices ornare eu eget massa. Donec rutrum vitae lacus sed laoreet. Morbi interdum cursus malesuada. Suspendisse potenti. Aliquam varius mattis metus at pharetra. Mauris ut lacinia leo.
                 </p>
             </div>
-            }
+            
         </div>   
     );
 }

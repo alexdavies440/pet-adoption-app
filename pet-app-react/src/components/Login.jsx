@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router";
 
-export default function Login({ jwt, setJwt }) {
+export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [jwt, setJwt] = useState("");
-
-    const [arr, setArr] = useState([]);
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -15,17 +12,6 @@ export default function Login({ jwt, setJwt }) {
 
     function handlePasswordChange(event) {
         setPassword(event.target.value);
-    }
-
-    function getPrincipal(event) {
-        event.preventDefault()
-        fetch("http://localhost:8080/test", {
-            headers: {
-                'Authorization': 'Bearer ' + jwt,
-            },
-        })
-            .then(res => res.text())
-            .then(data => console.log(data))
     }
 
     function handleSubmit(event) {
@@ -42,7 +28,7 @@ export default function Login({ jwt, setJwt }) {
             })
         })
             .then(res => res.text())
-            .then(data => setJwt(data))
+            .then(data => console.log(data))
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
@@ -64,7 +50,6 @@ export default function Login({ jwt, setJwt }) {
 
                 <button type="submit">Login</button>
             </form>
-            {/* <a href="/register">Register for an account</a> */}
             <Link className="link" to="/register">Register for an account</Link>
         </div>
 

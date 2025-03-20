@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Home({ jwt }) {
+export default function Home() {
 
     const [arr, setArr] = useState([]);
 
@@ -11,7 +11,7 @@ export default function Home({ jwt }) {
     function getAllUsers() {
         fetch("http://localhost:8080/", {
             headers: {
-                'Authorization': 'Bearer ' + jwt,
+                // 'Authorization': 'Bearer ' + jwt,
             },
         })
             .then(res => res.json())

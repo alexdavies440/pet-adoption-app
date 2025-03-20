@@ -9,23 +9,15 @@ import './App.css'
 
 function App() {
 
-  const [jwt, setJwt] = useState("");
-
   return (
     <>
       <BrowserRouter>
-        <Header jwt={jwt} />
+        <Header />
         <Routes>
-          <Route path='/' element={<Home jwt={jwt} />} />
-          <Route path='/login' element={
-            <Login
-              jwt={jwt}
-              setJwt={setJwt}
-            />
-          }
-          />
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />} />
-          <Route path='/profile' element={<Profile jwt={jwt} />} />
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>
