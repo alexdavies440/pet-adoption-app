@@ -38,7 +38,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login authenticated={authenticated} setAuthenticated={setAuthenticated} />}/>
           <Route path='/register' element={<Register />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile authenticated={authenticated} />} />
         </Routes>
       </BrowserRouter>
     </>
