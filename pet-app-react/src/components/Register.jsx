@@ -37,6 +37,7 @@ export default function Register() {
             .then(setUsername(""))
             .then(setPassword(""))
             .then(setVerifyPassword(""))
+            .catch(error => console.log(error))
     }
 
     return (

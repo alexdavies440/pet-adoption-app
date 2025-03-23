@@ -8,16 +8,17 @@ import Profile from './components/Profile'
 import './App.css'
 
 function App() {
-
+  const [credentials, setCredentials] = useState("");
+  
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header credentials={credentials} setCredentials={setCredentials} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />}/>
+          <Route path='/login' element={<Login setCredentials={setCredentials} />}/>
           <Route path='/register' element={<Register />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile credentials={credentials} />} />
         </Routes>
       </BrowserRouter>
     </>

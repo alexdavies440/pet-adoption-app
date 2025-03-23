@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router";
 
-export default function Login() {
+export default function Login({ setCredentials }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,16 +19,16 @@ export default function Login() {
 
         fetch("http://localhost:8080/login", {
             method: 'POST',
+            credentials: "include",
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": username,
-                "password": password,
-            })
+                'Authorization': 'Basic ' + btoa(username + ':' + password),
+            }
         })
             .then(res => res.text())
-            .then(data => console.log(data))
+            .then(data => data === "login-success" 
+                ? setCredentials("include") 
+                : setCredentials("omit"))
+           
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
@@ -40,12 +40,22 @@ export default function Login() {
             <form onSubmit={handleSubmit} method="POST">
                 <div>
                     <label className="form-item" htmlFor="username">Username: </label>
-                    <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={username}
+                        onChange={handleUsernameChange} />
                 </div>
 
                 <div>
                     <label className="form-item" htmlFor="password">Password: </label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange} />
                 </div>
 
                 <button type="submit">Login</button>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Profile() {
+export default function Profile({ credentials }) {
 
     const [username, setUsername] = useState("");
 
@@ -10,9 +10,7 @@ export default function Profile() {
 
     function getPrincipal() {
         fetch("http://localhost:8080/principal", {
-            headers: {
-                // 'Authorization': 'Bearer ' + jwt,
-            },
+            credentials: credentials
         })
             .then(res => res.text())
             .then(data => setUsername(data))

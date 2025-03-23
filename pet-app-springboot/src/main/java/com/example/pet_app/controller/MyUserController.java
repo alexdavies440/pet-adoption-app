@@ -3,8 +3,6 @@ package com.example.pet_app.controller;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +20,6 @@ public class MyUserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @GetMapping("/")
     public List<MyUser> returnAllUsers() {
