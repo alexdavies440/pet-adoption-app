@@ -29,7 +29,6 @@ public class MyUserController {
     @GetMapping("/principal")
     public String test3(Principal principal) {
         // Should return current user logged in
-
         return principal.getName();
     }
 

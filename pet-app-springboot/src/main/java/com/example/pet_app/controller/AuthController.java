@@ -3,14 +3,12 @@ package com.example.pet_app.controller;
 import com.example.pet_app.dto.RegisterDto;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -53,4 +51,10 @@ public class AuthController {
         // Should only return something if login is successful
         return "login-success";
     }
+
+    @GetMapping("/authenticated")
+    public String isAuthenticated(Principal principal) {
+        return principal.getName();
+    }
+
 }

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 
-export default function Login({ setCredentials }) {
+export default function Login({ authenticated, setAuthenticated }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -24,11 +25,13 @@ export default function Login({ setCredentials }) {
                 'Authorization': 'Basic ' + btoa(username + ':' + password),
             }
         })
-            .then(res => res.text())
-            .then(data => data === "login-success" 
-                ? setCredentials("include") 
-                : setCredentials("omit"))
-           
+            .then(res => {
+                if (res.status === 200) {
+                    setAuthenticated(true)
+                    navigate("/profile")
+                }
+            })
+            .then(data => console.log(data))
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
