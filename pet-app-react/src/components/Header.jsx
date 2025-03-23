@@ -1,20 +1,35 @@
 import { NavLink, Link } from "react-router";
 
-export default function Header({ jwt }) {
+export default function Header({ authenticated, setAuthenticated }) {
+
+    function handleLogout() {
+        fetch("http://localhost:8080/logout", {
+            credentials: "include",
+            method: 'POST'
+        })
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .then(setAuthenticated(false))
+            .catch(error => console.log(error))
+    }
+
     return (
         <header className="navbar">
             <nav>
                 <NavLink className="nav-item" to="/">Home</NavLink>
-                {jwt !== "" && 
-                <NavLink className="nav-item" to="/profile">Profile</NavLink>
+
+                {authenticated === true &&
+                    <NavLink className="nav-item" to="/profile">Profile</NavLink>
                 }
-                {jwt === "" &&
+
+                {authenticated === false &&
                     <NavLink className="nav-item" to="/login">Login</NavLink>
                 }
-                {jwt !== "" &&
-                    <NavLink className="nav-item">Logout</NavLink>
+
+                {authenticated === true &&
+                    <NavLink className="nav-item" to="/login" onClick={handleLogout}>Logout</NavLink>
                 }
-                {/* <NavLink className="nav-item" to="/register" >Register</NavLink> */}
+
             </nav>
         </header>
 

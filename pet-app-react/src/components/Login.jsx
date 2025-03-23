@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 
-export default function Login({ jwt, setJwt }) {
+export default function Login({ authenticated, setAuthenticated }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [jwt, setJwt] = useState("");
-
-    const [arr, setArr] = useState([]);
+    const navigate = useNavigate();
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -17,32 +15,23 @@ export default function Login({ jwt, setJwt }) {
         setPassword(event.target.value);
     }
 
-    function getPrincipal(event) {
-        event.preventDefault()
-        fetch("http://localhost:8080/test", {
-            headers: {
-                'Authorization': 'Bearer ' + jwt,
-            },
-        })
-            .then(res => res.text())
-            .then(data => console.log(data))
-    }
-
     function handleSubmit(event) {
         event.preventDefault();
 
         fetch("http://localhost:8080/login", {
             method: 'POST',
+            credentials: "include",
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": username,
-                "password": password,
-            })
+                'Authorization': 'Basic ' + btoa(username + ':' + password),
+            }
         })
-            .then(res => res.text())
-            .then(data => setJwt(data))
+            .then(res => {
+                if (res.status === 200) {
+                    setAuthenticated(true)
+                    navigate("/profile")
+                }
+            })
+            .then(data => console.log(data))
             .then(setUsername(""))
             .then(setPassword(""))
             .catch(error => console.log(error))
@@ -54,17 +43,26 @@ export default function Login({ jwt, setJwt }) {
             <form onSubmit={handleSubmit} method="POST">
                 <div>
                     <label className="form-item" htmlFor="username">Username: </label>
-                    <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={username}
+                        onChange={handleUsernameChange} />
                 </div>
 
                 <div>
                     <label className="form-item" htmlFor="password">Password: </label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange} />
                 </div>
 
                 <button type="submit">Login</button>
             </form>
-            {/* <a href="/register">Register for an account</a> */}
             <Link className="link" to="/register">Register for an account</Link>
         </div>
 
