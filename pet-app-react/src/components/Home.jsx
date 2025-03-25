@@ -1,25 +1,34 @@
 import { useState, useEffect } from "react";
+import PetContent from "./PetContent";
 
 export default function Home() {
 
-    const [pets, setPets] = useState([]);
+    const [token, setToken] = useState("_");
 
     useEffect(() => {
-        // getAllPets()
-    }, [])
+        generateBearerToken();
+    },[])
 
-    function getAllPets() {
-        fetch();
+    function generateBearerToken() {
+
+        const apiKey = "*****";
+        const secret = "*****";
+
+        fetch("https://api.petfinder.com/v2/oauth2/token", {
+            method: 'POST',
+            body: new URLSearchParams({
+                "grant_type": "client_credentials",
+                "client_id": apiKey,
+                "client_secret": secret
+            })
+        })
+        .then(res => res.json())
+        .then(data => setToken(data.access_token))
     }
 
     return (
-        <div className="container">
-            <h1>Welcome</h1>
-
-          
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXF4cmQ0cnl2dDNkaHRsbnFjdWg4N3J6Y3ozMjA5dnA4MDNiYmp5cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TitLQY80vZgrK/giphy.gif" alt="dancing-rat-placeholder" />
+        <div>
+            <PetContent token={token} />
         </div>
     );
 }
