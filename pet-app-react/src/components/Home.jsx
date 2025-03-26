@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import PetContent from "./PetContent";
+import { apiKey, secret } from "../../../../sensitive/pet-adoption-app/keys.js"
 
 export default function Home() {
 
-    const [token, setToken] = useState("_");
+    const [token, setToken] = useState("");
 
     useEffect(() => {
         generateBearerToken();
     },[])
 
     function generateBearerToken() {
-
-        const apiKey = "*****";
-        const secret = "*****";
 
         fetch("https://api.petfinder.com/v2/oauth2/token", {
             method: 'POST',
