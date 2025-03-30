@@ -74,6 +74,7 @@ label {
   border-bottom: 1px solid;
   margin: 0;
   padding: 0.7rem;
+  overflow: auto;
 }
 
 .nav-item {
@@ -85,6 +86,10 @@ label {
   font-size: 1rem;
   font-weight: bold;
   transition: 0.5s ease;
+}
+
+#content-nav-items {
+  float: left;
 }
 
 #account-nav-items {

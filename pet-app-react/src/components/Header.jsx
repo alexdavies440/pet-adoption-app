@@ -16,14 +16,16 @@ export default function Header({ authenticated, setAuthenticated }) {
     return (
         <header className="navbar">
             <nav>
-                <NavLink className="nav-item" to="/">Home</NavLink>
+                <div id="content-nav-items">
+                    <NavLink className="nav-item" to="/">Home</NavLink>
 
-                <NavLink className="nav-item" to="/cats">Cats</NavLink>
-                <NavLink className="nav-item" to="/dogs">Dogs</NavLink>
-                <NavLink className="nav-item" to="/rabbits">Rabbits</NavLink>
-                <NavLink className="nav-item" to="/birds">Birds</NavLink>
-                <NavLink className="nav-item" to="/horses">Horses</NavLink>
-                <NavLink className="nav-item" to="/misc">Misc Creature</NavLink>
+                    <NavLink className="nav-item" to="/cats">Cats</NavLink>
+                    <NavLink className="nav-item" to="/dogs">Dogs</NavLink>
+                    <NavLink className="nav-item" to="/rabbits">Rabbits</NavLink>
+                    <NavLink className="nav-item" to="/birds">Birds</NavLink>
+                    <NavLink className="nav-item" to="/horses">Horses</NavLink>
+                    <NavLink className="nav-item" to="/misc">Misc Creature</NavLink>
+                </div>
 
                 <div id="account-nav-items">
                     {authenticated === true &&
