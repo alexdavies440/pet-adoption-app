@@ -23,19 +23,32 @@ export default function PetContent({ token, type }) {
         })
             .then(res => res.json())
             .then(data => setPets(data.animals))
-            // .then(setIsLoading(false));
+        // .then(setIsLoading(false));
     }
+
+    function handleNullPhoto(photo) {
+        if (photo === null) {
+            return "https://t3.ftcdn.net/jpg/05/34/21/24/360_F_534212408_moxhV1d5Xj0TJiUDbnJvZmZrxmdDXH71.jpg"
+        }
+        else {
+            return photo.full;
+        }
+    }
+
+    console.log(pets)
 
     return (
         <div>
             {/* {isLoading && <h1>Loading...</h1>} */}
             {pets.map((pet) => (
-                pet.photos[0] &&
-                <div key={pet.id} className="card"> 
-                    {pet.photos[0] && <img className="pet-photo" src={pet.photos[0].large} alt="pet photo" />}
-                    <h2>{pet.name}</h2>
-                    <h2><a href={pet.url} target="_blank">🔗</a></h2>  
-                </div>
+                // pet.photos[0] &&
+                <a href={pet.url} target="_blank">
+                    <div key={pet.id} className="card">
+                        <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt="pet photo" />
+                        <h4>{pet.name}</h4>
+                        {/* <h4>{pet.type}</h4> */}
+                    </div>
+                </a>
             ))}
         </div>
     );

@@ -137,14 +137,20 @@ label {
 .pet-photo {
   max-width: 10rem;
   max-height: 10rem;
+  border-radius: 10px;
 }
 
 .card {
   width: 15rem;
   background-color: white;
+  border: 3px solid transparent;
   border-radius: 10px;
   display:inline-table;
-  padding: 2rem;
+  padding: 1rem;
   margin: 1rem;
   box-shadow: 0 0 15px;
+}
+
+.card:hover {
+  border: 3px solid rgb(26, 105, 119);
 }

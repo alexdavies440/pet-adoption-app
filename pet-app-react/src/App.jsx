@@ -50,7 +50,7 @@ function App() {
           .then(data => setToken(data.access_token))
       }
   
-      // console.log(token);
+      console.log(token);
   
   return (
     <>
@@ -65,7 +65,7 @@ function App() {
           <Route path='/birds' element ={<PetContent  token={token} type="bird" />} />
           <Route path='/horses' element ={<PetContent  token={token} type="horse" />} />
           <Route path='/rabbits' element ={<PetContent  token={token} type="rabbit" />} />
-          <Route path='/misc' element ={<PetContent  token={token} type="" />} />
+          <Route path='/misc' element ={<PetContent  token={token} type="scales-fins-other" />} />
 
           <Route path='/login' element={<Login authenticated={authenticated} setAuthenticated={setAuthenticated} />}/>
           <Route path='/register' element={<Register />} />
