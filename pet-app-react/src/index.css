@@ -82,9 +82,13 @@ label {
   margin: 2rem;
   border-radius: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: 0.5s ease;
+}
+
+#account-nav-items {
+  float: right;
 }
 
 .nav-item:hover {
@@ -126,15 +130,15 @@ label {
 }
 
 .pet-photo {
-  max-width: 20rem;
-  max-height: 20rem;
+  max-width: 10rem;
+  max-height: 10rem;
 }
 
 .card {
-  width: 20rem;
+  width: 15rem;
   background-color: white;
   border-radius: 10px;
-  display: inline-block;
+  display:inline-table;
   padding: 2rem;
   margin: 1rem;
   box-shadow: 0 0 15px;
