@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 
 
-export default function PetContent({ token, type }) {
+export default function PetContent({ token, type, location, distance }) {
 
     const [pets, setPets] = useState([]);
     // const [isLoading, setIsLoading] = useState(null);
@@ -12,11 +12,16 @@ export default function PetContent({ token, type }) {
     }, [token, type])
 
     function getAllPets() {
-        const dogUrl = `https://api.petfinder.com/v2/animals?type=${type}`;
-
+        let url = `https://api.petfinder.com/v2/animals?type=${type}`;
+        if (location === undefined || distance === undefined) {
+            url = `https://api.petfinder.com/v2/animals?type=${type}`;
+        }
+        else {
+            url = `https://api.petfinder.com/v2/animals?type=${type}&location=${location}&distance=${distance}`;
+        }
         // setIsLoading(true);
 
-        fetch(dogUrl, {
+        fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -32,7 +37,9 @@ export default function PetContent({ token, type }) {
         <div className="card-collection">
             {/* {isLoading && <h1>Loading...</h1>} */}
             {pets.map((pet) => (
-                <Card pet={pet} />
+                <div key={pet.id}>
+                    <Card pet={pet} />
+                </div>
             ))}
         </div>
     );

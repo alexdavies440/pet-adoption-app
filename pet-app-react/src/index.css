@@ -164,11 +164,13 @@ label {
 .pet-name {
   /* z-index: 1; */
   position: relative;
-  bottom: 4.2rem;
+  bottom: 4.7rem;
   border-radius: 0 0 10px 10px;
   padding: 0.5rem;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
+  height: 2rem;
+  overflow: auto;
 }
 
