@@ -135,22 +135,44 @@ label {
 }
 
 .pet-photo {
-  max-width: 10rem;
-  max-height: 10rem;
+  width: 15rem;
+  height: 15rem;
+  max-height: 15rem;
+  justify-content: center;
   border-radius: 10px;
+  position: relative;
+  top: -4rem;
+  left: 0;
+}
+
+.card-collection {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {
   width: 15rem;
+  height: 14rem;
+  /* overflow: auto; */
   background-color: white;
-  border: 3px solid transparent;
   border-radius: 10px;
-  display:inline-table;
-  padding: 1rem;
-  margin: 1rem;
+  /* padding: 0.5rem; */
+  margin: 0.5rem;
   box-shadow: 0 0 15px;
 }
 
+.pet-name {
+  z-index: 1;
+  position: relative;
+  bottom: -12.35rem;
+  border-radius: 0 0 10px 10px;
+  padding: 0.3rem;
+  text-align: center;
+  /* bottom: -12.5rem; */
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 .card:hover {
-  border: 3px solid rgb(26, 105, 119);
+  /* border: 3px solid rgb(26, 105, 119); */
+  box-shadow: 0 0 3px 10px rgb(26, 105, 119);
 }
