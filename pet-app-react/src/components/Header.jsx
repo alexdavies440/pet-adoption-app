@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router";
 
-export default function Header({ authenticated, setAuthenticated, location, setLocation, distance, setDistance }) {
+export default function Header({ authenticated, setAuthenticated }) {
 
     function handleLogout() {
         fetch("http://localhost:8080/logout", {
@@ -13,27 +13,11 @@ export default function Header({ authenticated, setAuthenticated, location, setL
             .catch(error => console.log(error))
     }
 
-    function handleSearch(event) {
-        event.preventDefault();
-    }
-
     return (
         <header className="navbar">
             <nav>
                 <div id="content-nav-items">
                     <NavLink className="nav-item" to="/">Home</NavLink>
-
-                    <NavLink className="nav-item" to="/cats">Cats</NavLink>
-                    <NavLink className="nav-item" to="/dogs">Dogs</NavLink>
-                    <NavLink className="nav-item" to="/rabbits">Rabbits</NavLink>
-                    <NavLink className="nav-item" to="/birds">Birds</NavLink>
-                    <NavLink className="nav-item" to="/horses">Horses</NavLink>
-                    <NavLink className="nav-item" to="/misc">Misc Creature</NavLink>
-                    {/* <form onSubmit={handleSearch}>
-                        <input className="nav-item" type="number" value={location} onChange={(e) => setLocation(e.target.value)} />
-                        <input className="nav-item" type="number" value={distance} onChange={(e) => setDistance(e.target.value)} />
-                        <input type="submit" />
-                    </form> */}
                 </div>
 
                 <div id="account-nav-items">
@@ -48,8 +32,6 @@ export default function Header({ authenticated, setAuthenticated, location, setL
                     }
                 </div>
             </nav>
-
         </header>
-
     );
 }

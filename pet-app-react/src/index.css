@@ -34,50 +34,16 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  background-color: rgb(184, 233, 239);
-  color: rgb(26, 105, 119);
-  padding: 0.7rem;
-  margin: 2rem;
-  margin-left: 0;
-  border: 2px solid rgb(68, 152, 166);
-  border-radius: 10px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: inherit;
-  font-weight: bold;
-  transition: 0.5s ease;
-}
-
-button:hover {
-  background-color: rgb(137, 190, 197);
-}
-
-input {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: rgb(26, 105, 119);
-  background-color: rgb(184, 233, 239);
-  border: 2px solid rgb(68, 152, 166);
-  border-radius: 10px;
-  padding: 0.3rem;
-}
-
-label {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: rgb(26, 105, 119);
-}
-
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid;
   margin: 0;
   padding: 0.7rem;
   overflow: auto;
-  /* z-index: 2;
-  position: fixed;
-  width: 100vw; */
 }
 
 .nav-item {
@@ -101,11 +67,6 @@ label {
 
 .nav-item:hover {
   background-color: rgb(184, 233, 239);
-}
-
-.form-item {
-  display: block;
-  padding: 0.5rem;
 }
 
 .container {
@@ -135,6 +96,10 @@ label {
   text-align: left;
   border-bottom: 2px solid;
   padding: 1rem;
+}
+
+.pet-content {
+  display: flex;
 }
 
 .card-collection {
@@ -173,4 +138,66 @@ label {
   height: 2rem;
   overflow: auto;
 }
+
+label {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: rgb(26, 105, 119);
+}
+
+input, select.pet-type {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: rgb(26, 105, 119);
+  background-color: rgb(184, 233, 239);
+  border: 2px solid rgb(68, 152, 166);
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+#location, #distance {
+  width: 5rem;
+}
+
+.form-item {
+  display: block;
+  padding: 0.5rem;
+}
+
+.search-form {
+  position: sticky;
+  top: 5rem;
+  left: 0;
+  width: 50rem;
+  height: 60vh;
+  margin: 1rem;
+  margin-left: 0;
+  padding: 1rem;
+  border-radius: 0 10px 10px 0;
+  display: inline-block;
+  background-color: white;
+  border-top: solid 3px;
+  border-right: solid 3px;
+  border-bottom: solid 3px;
+}
+
+button {
+  background-color: rgb(184, 233, 239);
+  color: rgb(26, 105, 119);
+  padding: 0.7rem;
+  margin: 2rem;
+  margin-left: 0;
+  border: 2px solid rgb(68, 152, 166);
+  border-radius: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: inherit;
+  font-weight: bold;
+  transition: 0.5s ease;
+}
+
+button:hover {
+  background-color: rgb(137, 190, 197);
+}
+
+
 

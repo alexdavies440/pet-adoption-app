@@ -15,9 +15,6 @@ function App() {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [token, setToken] = useState("");
-  const [location, setLocation] = useState();
-  const [distance, setDistance] = useState();
-
 
   useEffect(() => {
     generateBearerToken();
@@ -52,7 +49,7 @@ function App() {
       .then(data => setToken(data.access_token))
   }
 
-  console.log(token);
+  // console.log(token);
 
   return (
     <>
@@ -60,25 +57,31 @@ function App() {
         <Header
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
-          location={location}
-          setLocation={setLocation}
-          distance={distance}
-          setDistance={setDistance} 
         />
         <Routes>
-          <Route path='/' element={<Home token={token} />} />
-
-          <Route path='/cats' element={<PetContent token={token} type="cat" location={location} distance={distance} />} />
-          <Route path='/dogs' element={<PetContent token={token} type="dog" location={location} distance={distance} />} />
-          <Route path='/misc' element={<PetContent token={token} type="cat" location={location} distance={distance} />} />
-          <Route path='/birds' element={<PetContent token={token} type="bird" location={location} distance={distance} />} />
-          <Route path='/horses' element={<PetContent token={token} type="horse" location={location} distance={distance} />} />
-          <Route path='/rabbits' element={<PetContent token={token} type="rabbit" location={location} distance={distance} />} />
-          <Route path='/misc' element={<PetContent token={token} type="scales-fins-other" location={location} distance={distance} />} />
-
-          <Route path='/login' element={<Login authenticated={authenticated} setAuthenticated={setAuthenticated} />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/profile' element={<Profile authenticated={authenticated} />} />
+          <Route
+            path='/'
+            element={<Home
+              token={token}
+            />}
+          />
+          <Route
+            path='/login'
+            element={<Login
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+            />}
+          />
+          <Route
+            path='/register'
+            element={<Register />}
+          />
+          <Route
+            path='/profile'
+            element={<Profile
+              authenticated={authenticated}
+            />}
+          />
         </Routes>
       </BrowserRouter>
     </>
