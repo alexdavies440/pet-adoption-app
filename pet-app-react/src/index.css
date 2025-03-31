@@ -98,7 +98,7 @@ h1 {
   padding: 1rem;
 }
 
-.pet-content {
+.home {
   display: flex;
 }
 
@@ -168,7 +168,6 @@ input, select.pet-type {
   position: sticky;
   top: 5rem;
   left: 0;
-  width: 50rem;
   height: 60vh;
   margin: 1rem;
   margin-left: 0;
@@ -179,6 +178,7 @@ input, select.pet-type {
   border-top: solid 3px;
   border-right: solid 3px;
   border-bottom: solid 3px;
+  box-shadow: 0 0 10px;
 }
 
 button {

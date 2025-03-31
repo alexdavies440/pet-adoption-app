@@ -13,6 +13,7 @@ export default function PetContent({ token }) {
 
     useEffect(() => {
         getAllPets();
+        // getTypes();
     }, [token])
 
     function getAllPets() {
@@ -35,6 +36,17 @@ export default function PetContent({ token }) {
         // .then(setIsLoading(false));
     }
 
+    function getTypes() {
+        let url = "https://api.petfinder.com/v2/types?";
+        fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+    }
+
     function handleSearch(event) {
         event.preventDefault();
         getAllPets();
@@ -44,19 +56,22 @@ export default function PetContent({ token }) {
     // console.log(pets)
 
     return (
-        <div className="pet-content">
+        <div className="home">
             <form className="search-form" onSubmit={handleSearch}>
                 <h2>Filter Results</h2>
 
                 <div>
                     <label className="form-item" htmlFor="type">Creature</label>
                     <select className="pet-type" name="type" id="type" value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value="">Any</option>
+                        <option value="">Show All </option>
                         <option value="cat">Cats 🐈‍⬛</option>
                         <option value="dog">Dogs 🐕</option>
                         <option value="rabbit">Rabbits 🐇</option>
                         <option value="bird">Birds 🦢</option>
                         <option value="horse">Horses 🐎</option>
+                        <option value="small-furry">Rodent 🐁</option>
+                        <option value="barnyard">Livestock 🐄</option>
+                        <option value="scales-fins-other">Misc 🐢</option>
                     </select>
                 </div>
 
@@ -66,11 +81,11 @@ export default function PetContent({ token }) {
                 </div>
         
                 <div>
-                    <label className="form-item" htmlFor="distance">Distance</label>
+                    <label className="form-item" htmlFor="distance">Distance (miles)</label>
                     <input type="number" name="distance" id="distance" value={distance} onChange={(e) => setDistance(e.target.value)} />
                 </div>
 
-                <button type="submit">Filter Results</button>
+                <button type="submit">Update</button>
             </form>
 
             <div className="card-collection">
