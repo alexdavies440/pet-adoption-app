@@ -13,13 +13,15 @@ export default function Header({ authenticated, setAuthenticated }) {
             .catch(error => console.log(error))
     }
 
+    let num = 1;
+
     return (
         <header className="navbar">
             <nav>
                 <div id="content-nav-items">
                     <NavLink className="nav-item" to="/">Home</NavLink>
                 </div>
-
+                
                 <div id="account-nav-items">
                     {authenticated === true &&
                         <NavLink className="nav-item" to="/profile">Profile</NavLink>

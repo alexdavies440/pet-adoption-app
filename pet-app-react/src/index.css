@@ -145,7 +145,8 @@ label {
   color: rgb(26, 105, 119);
 }
 
-input, select.pet-type {
+input, select.pet-type, select.pet-breed {
+  max-width: 15rem;
   font-size: 1.2em;
   font-weight: bold;
   color: rgb(26, 105, 119);
@@ -168,7 +169,7 @@ input, select.pet-type {
   position: sticky;
   top: 5rem;
   left: 0;
-  height: 60vh;
+  height: fit-content;
   margin: 1rem;
   margin-left: 0;
   padding: 2rem;
@@ -198,6 +199,18 @@ button {
 button:hover {
   background-color: rgb(137, 190, 197);
 }
+
+.no-results-message {
+  max-height: fit-content;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  top: 24vh;
+  left: 25vw;
+}
+
+
 
 
 
