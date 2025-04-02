@@ -13,8 +13,6 @@ export default function Header({ authenticated, setAuthenticated }) {
             .catch(error => console.log(error))
     }
 
-    let num = 1;
-
     return (
         <header className="navbar">
             <nav>

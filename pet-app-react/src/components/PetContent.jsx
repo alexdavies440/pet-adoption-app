@@ -62,9 +62,15 @@ export default function PetContent({ token }) {
     }
 
     function handleSearch(event) {
+
+        // Need error handling for invalid inputs to prevent crash 
+        
         event.preventDefault();
-        getAllPets();
-        console.log(type);
+        if (distance <= 100 || distance === undefined || distance === "") {
+            getAllPets();
+        }
+
+        // console.log(type);
     }
 
     return (
@@ -107,7 +113,7 @@ export default function PetContent({ token }) {
                     <input type="number" name="distance" id="distance" value={distance} onChange={(e) => setDistance(e.target.value)} />
                 </div>
 
-                <button type="submit">Update</button>
+                <button id="update-results-button" type="submit">Update</button>
             </form>
 
             <div className="card-collection">
