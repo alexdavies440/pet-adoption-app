@@ -49,7 +49,7 @@ function App() {
       .then(data => setToken(data.access_token))
   }
 
-  // console.log(token);
+  console.log(token);
 
   return (
     <>

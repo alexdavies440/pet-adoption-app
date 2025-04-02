@@ -8,27 +8,25 @@ export default function PetContent({ token }) {
     const [type, setType] = useState("");
     const [breedData, setBreedData] = useState([]);
     const [breed, setBreed] = useState("");
-    const [location, setLocation] = useState();
-    const [distance, setDistance] = useState();
-    // const [isLoading, setIsLoading] = useState(null);
+    const [location, setLocation] = useState("");
+    const [distance, setDistance] = useState("");
 
     useEffect(() => {
         getAllPets();
-        // getTypes();
     }, [token])
 
     function getAllPets() {
-        let url = `https://api.petfinder.com/v2/animals?type=${type}`;
-        if (location === undefined ||
-            distance === undefined ||
-            location === "" ||
-            distance === "") {
+        let url = "";
+        // Distance value for pets will be null unless locaton and distance are provided in search query
+        let isDistanceNull = true;
+        
+        if (location === "" || distance === "") {
             url = `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}&limit=50`;
         }
         else {
             url = `https://api.petfinder.com/v2/animals?type=${type}&location=${location}&distance=${distance}&breed=${breed}&limit=50`;
+            isDistanceNull = false;
         }
-        // setIsLoading(true);
 
         fetch(url, {
             headers: {
@@ -36,9 +34,16 @@ export default function PetContent({ token }) {
             }
         })
             .then(res => res.json())
-            .then(data => setPets(data.animals));
-
-        // .then(setIsLoading(false));
+            .then(data => {
+                if (!isDistanceNull) {
+                    const sortedPets = data.animals.sort((a, b) => a.distance - b.distance);
+                    setPets(sortedPets);
+                }
+                else {
+                    setPets(data.animals);
+                }
+            }
+        )
     }
 
     function getBreeds(input) {
@@ -61,17 +66,22 @@ export default function PetContent({ token }) {
         setBreed(event.target.value);
     }
 
-    function handleSearch(event) {
+    function handleDistanceChange(event) {
+        setDistance(event.target.value);
+        if (event.target.value === "") {
+            setLocation("");
+        }
+    }
 
-        // Need error handling for invalid inputs to prevent crash 
+    function handleSearch(event) {
         
         event.preventDefault();
-        if (distance <= 100 || distance === undefined || distance === "") {
+        if (distance <= 100) {
             getAllPets();
         }
-
-        // console.log(type);
     }
+
+    // console.log(pets);    
 
     return (
         <div className="home">
@@ -105,12 +115,12 @@ export default function PetContent({ token }) {
 
                 <div>
                     <label className="form-item" htmlFor="location">Zip Code</label>
-                    <input type="number" name="location" id="location" value={location} onChange={(e) => setLocation(e.target.value)} />
+                    <input type="text" pattern="[0-9]{5}" title="Zip code must be 5 digits" name="location" id="location" value={location} onChange={(e) => setLocation(e.target.value)} />
                 </div>
 
                 <div>
                     <label className="form-item" htmlFor="distance">Distance (miles)</label>
-                    <input type="number" name="distance" id="distance" value={distance} onChange={(e) => setDistance(e.target.value)} />
+                    <input type="number" min="0" max="100" name="distance" id="distance" value={distance} onChange={handleDistanceChange} />
                 </div>
 
                 <button id="update-results-button" type="submit">Update</button>
