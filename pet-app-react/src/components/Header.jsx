@@ -19,6 +19,10 @@ export default function Header({ authenticated, setAuthenticated }) {
                 <div id="content-nav-items">
                     <NavLink className="nav-item" to="/">Home</NavLink>
                 </div>
+
+                <div id="content-nav-items">
+                    <NavLink className="nav-item" to="/organizations">Organizations</NavLink>
+                </div>
                 
                 <div id="account-nav-items">
                     {authenticated === true &&

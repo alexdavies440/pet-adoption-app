@@ -210,6 +210,39 @@ button:hover {
   left: 25vw;
 }
 
+.organizations-container {
+  margin: 2rem;
+}
+
+.organization-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  text-align: left;
+  width: 38rem;
+}
+
+.organization-link {
+  font-size: 1.2rem;
+}
+
+.organization-search {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+
+.organization-search button {
+  font-size: 1.2em;
+  padding: 0.3rem;
+  margin-left: 0.5rem;
+
+}
+
 
 
 

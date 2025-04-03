@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
 import Profile from './components/Profile';
-import PetContent from './components/PetContent';
+import Organizations from './components/Organizations.jsx';
 import { apiKey, secret } from "../../../sensitive/pet-adoption-app/keys.js";
 
 import './App.css';
@@ -49,7 +49,7 @@ function App() {
       .then(data => setToken(data.access_token))
   }
 
-  console.log(token);
+  // console.log(token);
 
   return (
     <>
@@ -62,6 +62,12 @@ function App() {
           <Route
             path='/'
             element={<Home
+              token={token}
+            />}
+          />
+          <Route
+            path='/organizations'
+            element={<Organizations
               token={token}
             />}
           />
