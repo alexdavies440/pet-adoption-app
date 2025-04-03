@@ -106,7 +106,6 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   height: fit-content;
-
 }
 
 .card {
@@ -117,6 +116,7 @@ h1 {
   box-shadow: 0 0 15px;
   transition: 0.25s ease;
 }
+
 .card:hover {
   box-shadow: 0 0 3px 5px rgb(26, 105, 119);
 }
@@ -173,12 +173,9 @@ input, select.pet-type, select.pet-breed {
   margin-right: 3rem;
   margin-top: -3rem;
   padding: 2rem;
-  border-radius: 0 10px 10px 0;
-  display: inline-block;
+  /* display: inline-block; */
   background-color: white;
-  border-top: solid 3px;
   border-right: solid 3px;
-  border-bottom: solid 3px;
   box-shadow: 0 0 10px;
 }
 

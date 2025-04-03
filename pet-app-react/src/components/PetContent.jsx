@@ -10,22 +10,32 @@ export default function PetContent({ token }) {
     const [breed, setBreed] = useState("");
     const [location, setLocation] = useState("");
     const [distance, setDistance] = useState("");
+    const [petName, setPetName] = useState("");
 
     useEffect(() => {
         getAllPets();
     }, [token])
 
     function getAllPets() {
-        let url = "";
         // Distance value for pets will be null unless locaton and distance are provided in search query
         let isDistanceNull = true;
-        
-        if (location === "" || distance === "") {
-            url = `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}&limit=50`;
+
+        const baseUrl = `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}&limit=52`;
+        let url;
+
+        if (petName !== "" && location !== "" && distance !== "") {
+            url = baseUrl + `&name=${petName}` + `&location=${location}&distance=${distance}`;
+            isDistanceNull = false;
+        }
+        else if (location !== "" && distance !== "") {
+            url = baseUrl + `&location=${location}&distance=${distance}`;
+            isDistanceNull = false;
+        }
+        else if (petName !== "") {
+            url = baseUrl + `&name=${petName}`;
         }
         else {
-            url = `https://api.petfinder.com/v2/animals?type=${type}&location=${location}&distance=${distance}&breed=${breed}&limit=50`;
-            isDistanceNull = false;
+            url = baseUrl;
         }
 
         fetch(url, {
@@ -35,6 +45,7 @@ export default function PetContent({ token }) {
         })
             .then(res => res.json())
             .then(data => {
+                // console.log(data);
                 if (!isDistanceNull) {
                     const sortedPets = data.animals.sort((a, b) => a.distance - b.distance);
                     setPets(sortedPets);
@@ -42,8 +53,7 @@ export default function PetContent({ token }) {
                 else {
                     setPets(data.animals);
                 }
-            }
-        )
+            })
     }
 
     function getBreeds(input) {
@@ -66,28 +76,29 @@ export default function PetContent({ token }) {
         setBreed(event.target.value);
     }
 
-    function handleDistanceChange(event) {
-        setDistance(event.target.value);
+    function handleLocationChange(event) {
+        setLocation(event.target.value);
         if (event.target.value === "") {
-            setLocation("");
+            setDistance("");
         }
     }
 
     function handleSearch(event) {
-        
+
         event.preventDefault();
         if (distance <= 100) {
             getAllPets();
         }
     }
 
-    // console.log(pets);    
-
     return (
         <div className="home">
             <form className="search-form" onSubmit={handleSearch}>
                 <h2>Filter Results</h2>
-
+                <div>
+                    <label className="form-item" htmlFor="petName">Name</label>
+                    <input type="text" name="petName" value={petName} onChange={(e) => setPetName(e.target.value)} />
+                </div>
                 <div>
                     <label className="form-item" htmlFor="type">Creature</label>
                     <select className="pet-type" name="type" id="type" value={type} onChange={handleTypeChange}>
@@ -115,15 +126,15 @@ export default function PetContent({ token }) {
 
                 <div>
                     <label className="form-item" htmlFor="location">Zip Code</label>
-                    <input type="text" pattern="[0-9]{5}" title="Zip code must be 5 digits" name="location" id="location" value={location} onChange={(e) => setLocation(e.target.value)} />
+                    <input type="text" pattern="[0-9]{5}" title="Zip code must be 5 digits" name="location" id="location" value={location} onChange={handleLocationChange} />
                 </div>
 
                 <div>
                     <label className="form-item" htmlFor="distance">Distance (miles)</label>
-                    <input type="number" min="0" max="100" name="distance" id="distance" value={distance} onChange={handleDistanceChange} />
+                    <input type="number" min="0" max="100" name="distance" id="distance" value={distance} onChange={(e) => setDistance(e.target.value)} />
                 </div>
 
-                <button id="update-results-button" type="submit">Update</button>
+                <button id="update-results-button" type="submit">Search</button>
             </form>
 
             <div className="card-collection">
@@ -132,13 +143,14 @@ export default function PetContent({ token }) {
                     <h1 className="no-results-message">No Results</h1>
                 }
                 {
-                    pets.length > 1 &&
+                    pets.length >= 1 &&
                     pets.map((pet) => (
                         <div key={pet.id}>
                             <Card pet={pet} />
                         </div>
                     ))}
             </div>
+
         </div>
     );
 }

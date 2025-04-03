@@ -5,7 +5,7 @@ export default function Organizations({ token }) {
     const [organizations, setOrganizations] = useState([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
-    const [loading, setLoading] = useState("");
+    // const [loading, setLoading] = useState("");
 
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function Organizations({ token }) {
     }, [token, page]);
 
     function getOrganizations() {
-        setLoading(true);
+        // setLoading(true);
         let url = "";
         if (query === "") {
             url = `https://api.petfinder.com/v2/organizations?page=${page}&sort=name&limit=100`
@@ -28,14 +28,14 @@ export default function Organizations({ token }) {
         })
             .then(res => res.json())
             .then(data => setOrganizations(data.organizations))
-            .then(setLoading(false))
+            // .then(setLoading(false))
             .then(window.scrollTo(0, 0));
     }
 
     function handleOrgSearch(event) {
         event.preventDefault();
         getOrganizations();
-        setQuery("");
+        // setQuery("");
     }
 
     console.log(page);
@@ -43,7 +43,6 @@ export default function Organizations({ token }) {
     return (
         <div className="container organizations-container">
             <h1>Organizations</h1>
-            {loading && <h1>Loading</h1>}
 
             <form className="organization-search" onSubmit={handleOrgSearch}>
                 <label htmlFor="query"></label>
