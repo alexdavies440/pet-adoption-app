@@ -34,46 +34,16 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  background-color: rgb(184, 233, 239);
-  color: rgb(26, 105, 119);
-  padding: 0.7rem;
-  margin: 2rem;
-  margin-left: 0;
-  border: 2px solid rgb(68, 152, 166);
-  border-radius: 10px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: inherit;
-  font-weight: bold;
-  transition: 0.5s ease;
-}
-
-button:hover {
-  background-color: rgb(137, 190, 197);
-}
-
-input {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: rgb(26, 105, 119);
-  background-color: rgb(184, 233, 239);
-  border: 2px solid rgb(68, 152, 166);
-  border-radius: 10px;
-  padding: 0.3rem;
-}
-
-label {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: rgb(26, 105, 119);
-}
-
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid;
   margin: 0;
   padding: 0.7rem;
+  overflow: auto;
 }
 
 .nav-item {
@@ -82,17 +52,21 @@ label {
   margin: 2rem;
   border-radius: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1rem;
   font-weight: bold;
   transition: 0.5s ease;
 }
 
-.nav-item:hover {
-  background-color: rgb(184, 233, 239);
+#content-nav-items {
+  float: left;
 }
 
-.form-item {
-  display: block;
-  padding: 0.5rem;
+#account-nav-items {
+  float: right;
+}
+
+.nav-item:hover {
+  background-color: rgb(184, 233, 239);
 }
 
 .container {
@@ -123,3 +97,150 @@ label {
   border-bottom: 2px solid;
   padding: 1rem;
 }
+
+.home {
+  display: flex;
+}
+
+.card-collection {
+  display: flex;
+  flex-wrap: wrap;
+  height: fit-content;
+}
+
+.card {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 10px;
+  margin: 1rem;
+  box-shadow: 0 0 15px;
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0 3px 5px rgb(26, 105, 119);
+}
+
+.pet-photo {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.pet-name {
+  position: relative;
+  bottom: 4.7rem;
+  border-radius: 0 0 10px 10px;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: white;
+  height: 2rem;
+  overflow: auto;
+}
+
+label {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: rgb(26, 105, 119);
+}
+
+input, select.pet-type, select.pet-breed {
+  width: 14rem;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: rgb(26, 105, 119);
+  background-color: rgb(184, 233, 239);
+  border: 2px solid rgb(68, 152, 166);
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+#location, #distance {
+  width: 5rem;
+}
+
+.form-item {
+  display: block;
+  padding: 0.5rem;
+}
+
+.search-form {
+  position: sticky;
+  top: 1rem;
+  left: 0;
+  height: 100vh;
+  margin-right: 3rem;
+  margin-top: -3rem;
+  padding: 2rem;
+  /* display: inline-block; */
+  background-color: white;
+  border-right: solid 3px;
+  box-shadow: 0 0 10px;
+}
+
+button {
+  background-color: rgb(184, 233, 239);
+  color: rgb(26, 105, 119);
+  padding: 0.7rem;
+  margin: 2rem;
+  margin-left: 0;
+  border: 2px solid rgb(68, 152, 166);
+  border-radius: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: inherit;
+  font-weight: bold;
+  transition: 0.5s ease;
+}
+
+button:hover {
+  background-color: rgb(137, 190, 197);
+}
+
+.no-results-message {
+  max-height: fit-content;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  top: 24vh;
+  left: 25vw;
+}
+
+.organizations-container {
+  margin: 2rem;
+}
+
+.organization-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  text-align: left;
+  width: 38rem;
+}
+
+.organization-link {
+  font-size: 1.2rem;
+}
+
+.organization-search {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+
+.organization-search button {
+  font-size: 1.2em;
+  padding: 0.3rem;
+  margin-left: 0.5rem;
+
+}
+
+
+
+
+

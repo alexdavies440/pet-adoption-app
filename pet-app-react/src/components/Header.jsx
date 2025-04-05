@@ -16,22 +16,26 @@ export default function Header({ authenticated, setAuthenticated }) {
     return (
         <header className="navbar">
             <nav>
-                <NavLink className="nav-item" to="/">Home</NavLink>
+                <div id="content-nav-items">
+                    <NavLink className="nav-item" to="/">Home</NavLink>
+                </div>
 
-                {authenticated === true &&
-                    <NavLink className="nav-item" to="/profile">Profile</NavLink>
-                }
-
-                {authenticated === false &&
-                    <NavLink className="nav-item" to="/login">Login</NavLink>
-                }
-
-                {authenticated === true &&
-                    <NavLink className="nav-item" to="/login" onClick={handleLogout}>Logout</NavLink>
-                }
-
+                <div id="content-nav-items">
+                    <NavLink className="nav-item" to="/organizations">Organizations</NavLink>
+                </div>
+                
+                <div id="account-nav-items">
+                    {authenticated === true &&
+                        <NavLink className="nav-item" to="/profile">Profile</NavLink>
+                    }
+                    {authenticated === false &&
+                        <NavLink className="nav-item" to="/login">Login</NavLink>
+                    }
+                    {authenticated === true &&
+                        <NavLink className="nav-item" to="/login" onClick={handleLogout}>Logout</NavLink>
+                    }
+                </div>
             </nav>
         </header>
-
     );
 }
