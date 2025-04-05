@@ -90,14 +90,14 @@ export default function PetContent({ token }) {
                     <label className="form-item" htmlFor="type">Creature</label>
                     <select className="pet-type" name="type" id="type" value={type} onChange={handleTypeChange}>
                         <option value="">Show All </option>
-                        <option value="cat">Cats 🐈‍⬛</option>
-                        <option value="dog">Dogs 🐕</option>
-                        <option value="rabbit">Rabbits 🐇</option>
-                        <option value="bird">Birds 🦢</option>
-                        <option value="horse">Horses 🐎</option>
-                        <option value="small-furry">Rodent 🐁</option>
-                        <option value="barnyard">Livestock 🐄</option>
-                        <option value="scales-fins-other">Misc 🐢</option>
+                        <option value="cat">🐈‍⬛ Cats</option>
+                        <option value="dog">🐕 Dogs</option>
+                        <option value="rabbit">🐇 Rabbits</option>
+                        <option value="bird">🦢 Birds</option>
+                        <option value="horse">🐎 Horses</option>
+                        <option value="small-furry">🐁Rodent</option>
+                        <option value="barnyard">🐄 Livestock</option>
+                        <option value="scales-fins-other">🐢 Misc</option>
                     </select>
                 </div>
 
