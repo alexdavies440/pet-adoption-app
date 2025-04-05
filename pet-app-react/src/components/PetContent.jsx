@@ -17,19 +17,15 @@ export default function PetContent({ token }) {
     }, [token])
 
     function getAllPets() {
-        // Distance value for pets will be null unless locaton and distance are provided in search query
-        let isDistanceNull = true;
-
-        const baseUrl = `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}&limit=52`;
+        
+        const baseUrl = `https://api.petfinder.com/v2/animals?special_needs=true&type=${type}&breed=${breed}&limit=52`;
         let url;
 
         if (petName !== "" && location !== "" && distance !== "") {
-            url = baseUrl + `&name=${petName}` + `&location=${location}&distance=${distance}`;
-            isDistanceNull = false;
+            url = baseUrl + `&name=${petName}` + `&location=${location}&distance=${distance}&sort=distance`;
         }
         else if (location !== "" && distance !== "") {
-            url = baseUrl + `&location=${location}&distance=${distance}`;
-            isDistanceNull = false;
+            url = baseUrl + `&location=${location}&distance=${distance}&sort=distance`;
         }
         else if (petName !== "") {
             url = baseUrl + `&name=${petName}`;
@@ -44,16 +40,7 @@ export default function PetContent({ token }) {
             }
         })
             .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (!isDistanceNull) {
-                    const sortedPets = data.animals.sort((a, b) => a.distance - b.distance);
-                    setPets(sortedPets);
-                }
-                else {
-                    setPets(data.animals);
-                }
-            })
+            .then(data => setPets(data.animals));
     }
 
     function getBreeds(input) {
