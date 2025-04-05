@@ -5,7 +5,6 @@ export default function Organizations({ token }) {
     const [organizations, setOrganizations] = useState([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
-    // const [loading, setLoading] = useState("");
 
 
     useEffect(() => {
@@ -13,7 +12,6 @@ export default function Organizations({ token }) {
     }, [token, page]);
 
     function getOrganizations() {
-        // setLoading(true);
         let url = "";
         if (query === "") {
             url = `https://api.petfinder.com/v2/organizations?page=${page}&sort=name&limit=100`
@@ -28,17 +26,14 @@ export default function Organizations({ token }) {
         })
             .then(res => res.json())
             .then(data => setOrganizations(data.organizations))
-            // .then(setLoading(false))
             .then(window.scrollTo(0, 0));
     }
 
     function handleOrgSearch(event) {
         event.preventDefault();
+        setPage(1);
         getOrganizations();
-        // setQuery("");
     }
-
-    console.log(page);
 
     return (
         <div className="container organizations-container">
@@ -46,7 +41,7 @@ export default function Organizations({ token }) {
 
             <form className="organization-search" onSubmit={handleOrgSearch}>
                 <label htmlFor="query"></label>
-                <input type="text" name="query" value={query} onChange={(e) => setQuery(e.target.value)}/>
+                <input type="text" name="query" value={query} onChange={(e) => setQuery(e.target.value)} />
                 <button type="submit">Search</button>
             </form>
 
@@ -61,7 +56,9 @@ export default function Organizations({ token }) {
             {page > 1 &&
                 <button onClick={() => setPage(page - 1)}>Back</button>
             }
-            <button onClick={() => setPage(page + 1)}>Next Page...</button>
+            {organizations.length === 100 &&
+                <button onClick={() => setPage(page + 1)}>Next Page...</button>
+            }
         </div>
     );
 }
