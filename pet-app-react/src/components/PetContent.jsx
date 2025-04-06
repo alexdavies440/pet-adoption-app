@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 
 
-export default function PetContent({ token }) {
+export default function PetContent({ token, authenticated }) {
 
     const [pets, setPets] = useState([]);
     const [type, setType] = useState("");
@@ -95,7 +95,7 @@ export default function PetContent({ token }) {
                         <option value="rabbit">🐇 Rabbits</option>
                         <option value="bird">🦢 Birds</option>
                         <option value="horse">🐎 Horses</option>
-                        <option value="small-furry">🐁Rodent</option>
+                        <option value="small-furry">🐁 Rodent</option>
                         <option value="barnyard">🐄 Livestock</option>
                         <option value="scales-fins-other">🐢 Misc</option>
                     </select>
@@ -133,7 +133,10 @@ export default function PetContent({ token }) {
                     pets.length >= 1 &&
                     pets.map((pet) => (
                         <div key={pet.id}>
-                            <Card pet={pet} />
+                            <Card 
+                                pet={pet}
+                                authenticated={authenticated}
+                            />
                         </div>
                     ))}
             </div>

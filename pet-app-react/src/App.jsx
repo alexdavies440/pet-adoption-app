@@ -63,6 +63,7 @@ function App() {
             path='/'
             element={<Home
               token={token}
+              authenticated={authenticated}
             />}
           />
           <Route

@@ -4,13 +4,14 @@ import { useNavigate } from "react-router";
 export default function Profile({ authenticated }) {
 
     const [username, setUsername] = useState("");
+    const [followed, setFollowed] = useState([]);
 
     const navigate = useNavigate();
 
     const placeholderArr = ["Aldo", "Looney", "Effy", "Lucy"];
 
     useEffect(() => {
-        authenticate()
+        authenticate();
     }, [])
 
     function authenticate() {
@@ -37,9 +38,13 @@ export default function Profile({ authenticated }) {
                 <h1 className="profile-header">{username.toUpperCase()}</h1>
             </div>
             <div>
-                <h2>Saved Pets</h2>
-                <ul>
-                    {placeholderArr.map((name, index) => (
+                <h2>Following</h2>
+                {followed.length === 0 &&
+                <h3>You are not following any pets</h3>
+                }
+                {followed.length >= 1 &&
+                 <ul>
+                    {followed.map((name, index) => (
                         <a href="#">
                             <li key={index}>
                                 {name}
@@ -47,6 +52,7 @@ export default function Profile({ authenticated }) {
                         </a>
                     ))}
                 </ul>
+                }
             </div>
         </div>
     );
