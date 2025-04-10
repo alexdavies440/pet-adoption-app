@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Card({ pet, authenticated }) {
+export default function Card({ pet, authenticated, setFollowed }) {
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -13,15 +13,35 @@ export default function Card({ pet, authenticated }) {
         }
     }
 
+    function handleFollow() {
+        setFollowed(f => [...f, pet.id]);
+
+        fetch("http://localhost:8080/follow", {
+            method: 'POST',
+            credentials: "include",
+            body: pet.id
+        })
+        .then(res => res.text())
+        .then(data => console.log(data));
+    }
+
     return (
-        <a href={pet.url} target="_blank" onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
+        <div onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
             {authenticated &&
-                <button className={isVisible ? "follow-button mouseOver" : "follow-button"}>Follow</button>
+                <button
+                    className={isVisible ? "follow-button mouseOver" : "follow-button"}
+                    onClick={handleFollow}
+                >Follow
+                </button>
             }
-            <div className="card">
-                <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt={`Pet photo for a ${pet.type} named ${pet.name}`} />
-                <h4 className="pet-name">{pet.name} {pet.distance && ` - ${Math.round(pet.distance)}mi`}</h4>
-            </div>
-        </a>
+             
+            <a href={pet.url} target="_blank" >
+                <div className="card">
+                    <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt={`Pet photo for a ${pet.type} named ${pet.name}`} />
+                    <h4 className="pet-name">{pet.name} {pet.distance && ` - ${Math.round(pet.distance)}mi`}</h4>
+                </div>
+            </a>
+        </div>
+
     );
 }

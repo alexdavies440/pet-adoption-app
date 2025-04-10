@@ -1,12 +1,9 @@
 package com.example.pet_app.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class MyUser {
@@ -20,6 +17,8 @@ public class MyUser {
 
     @NotBlank
     private String password;
+
+    private Set<Long> followedPets;
 
     public MyUser() {}
 
@@ -67,5 +66,13 @@ public class MyUser {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public Set<Long> getFollowedPets() {
+        return followedPets;
+    }
+
+    public void setFollowedPets(Set<Long> followedPets) {
+        this.followedPets = followedPets;
     }
 }

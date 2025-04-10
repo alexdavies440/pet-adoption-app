@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 
 
-export default function PetContent({ token, authenticated }) {
+export default function PetContent({ token, authenticated, setFollowed }) {
 
     const [pets, setPets] = useState([]);
     const [type, setType] = useState("");
@@ -136,6 +136,7 @@ export default function PetContent({ token, authenticated }) {
                             <Card 
                                 pet={pet}
                                 authenticated={authenticated}
+                                setFollowed={setFollowed}
                             />
                         </div>
                     ))}
