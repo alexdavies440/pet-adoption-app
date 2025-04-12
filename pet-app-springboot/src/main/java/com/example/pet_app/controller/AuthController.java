@@ -3,6 +3,7 @@ package com.example.pet_app.controller;
 import com.example.pet_app.dto.RegisterDto;
 import com.example.pet_app.model.MyUser;
 import com.example.pet_app.repository.MyUserRepository;
+import com.example.pet_app.security.service.EmailService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,33 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/register")
     public String registerNewUser(@RequestBody @Valid RegisterDto registerDto) {
 
         String username = registerDto.getUsername();
+        String email = registerDto.getEmail();
+        String password = registerDto.getPassword();
+        String verifyPassword = registerDto.getVerifyPassword();
 
         Optional<MyUser> optUser = myUserRepository.findByUsername(registerDto.getUsername());
 
         if (optUser.isPresent()) {
             return "User already exists";
         }
-        else if (registerDto.getPassword().equals(registerDto.getVerifyPassword())) {
+        else if (password.equals(verifyPassword)) {
 
-            String password = passwordEncoder.encode(registerDto.getPassword());
-            MyUser newUser = new MyUser(username, password);
+            password = passwordEncoder.encode(password);
+            MyUser newUser = new MyUser(username, email, password);
             myUserRepository.save(newUser);
-            System.out.println("User " + newUser.getUsername() + " registered");
-            return "User " + newUser.getUsername() + " registered";
+            emailService.sendEmail(
+                    "Thank You for Joining Wishbone!",
+                    email,
+                    "Hello!"
+            );
+            return "";
         }
         else {
             return "Passwords must match";

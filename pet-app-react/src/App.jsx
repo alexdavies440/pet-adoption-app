@@ -15,7 +15,6 @@ function App() {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [token, setToken] = useState("");
-  // const [followed, setFollowed] = useState([]);
 
   useEffect(() => {
     generateBearerToken();

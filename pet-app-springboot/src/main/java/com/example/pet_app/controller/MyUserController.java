@@ -52,26 +52,23 @@ public class MyUserController {
             myUserRepository.save(myUser);
             petRepository.save(newPet);
 
-            response = myUser.getFollowedPets().toString();
+            response = "Following pet# " + petId;
         }
         return response;
     }
 
     @GetMapping("/following")
     public Set<Long> getFollowedPets(Principal principal) {
-        Set<Long> followingSet = new HashSet<>();
+
         Optional<MyUser> optUser = myUserRepository.findByUsername(principal.getName());
 
         if (optUser.isPresent()) {
             MyUser myUser = optUser.get();
-            List<Pet> following = petRepository.findAll();
-            for (Pet pet : following) {
-                if (pet.getFollower().equals(myUser)) {
-                    followingSet.add(pet.getPetId());
-                }
-            }
+            return myUser.getFollowedPetIds();
+        } else {
+            return null;
         }
-        System.out.println(followingSet);
-        return followingSet;
     }
+
+
 }

@@ -3,11 +3,17 @@ import { useState } from "react";
 export default function Register() {
 
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const [error, setError] = useState("");
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
+    }
+
+    function handleEmailChange(event) {
+        setEmail(event.target.value);
     }
 
     function handlePasswordChange(event) {
@@ -28,16 +34,22 @@ export default function Register() {
             },
             body: JSON.stringify({
                 "username": username,
+                "email": email,
                 "password": password,
                 "verifyPassword": verifyPassword
             })
         })
             .then(res => res.text())
-            .then(data => console.log(data))
+            .then(data => setError(data))
             .then(setUsername(""))
+            .then(setEmail(""))
             .then(setPassword(""))
             .then(setVerifyPassword(""))
-            .catch(error => console.log(error))
+            // .catch(error => console.log(error))
+
+    }
+    if (error === "") {
+        // Need logic to redirect to login page if registration is successful
     }
 
     return (
@@ -47,6 +59,11 @@ export default function Register() {
                 <div>
                     <label className="form-item" htmlFor="username">Username: </label>
                     <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                </div>
+
+                <div>
+                    <label className="form-item" htmlFor="email">Email: </label>
+                    <input type="email" name="email" value={email} onChange={handleEmailChange} />
                 </div>
 
                 <div>
@@ -61,6 +78,7 @@ export default function Register() {
 
                 <button type="submit">Register</button>
             </form>
+            <h3>{error}</h3>
         </div>
     );
 }

@@ -1,7 +1,9 @@
 package com.example.pet_app.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +21,10 @@ public class MyUser {
     private String username;
 
     @NotBlank
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE)
+    private String email;
+
+    @NotBlank
     private String password;
 
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -26,8 +32,9 @@ public class MyUser {
 
     public MyUser() {}
 
-    public MyUser(String username, String password) {
+    public MyUser(String username, String email, String password) {
         this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -60,21 +67,16 @@ public class MyUser {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        MyUser myUser = (MyUser) o;
-        return id == myUser.id && Objects.equals(username, myUser.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @OneToMany(mappedBy = "my_user", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Pet> getFollowedPets() {
         return followedPets;
+    }
+
+    public Set<Long> getFollowedPetIds() {
+        Set<Long> petIds = new HashSet<>();
+        for (Pet pet : followedPets) {
+            petIds.add(pet.getPetId());
+        }
+        return petIds;
     }
 
     public void setFollowedPets(Set<Pet> followedPets) {
