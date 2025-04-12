@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Card({ pet, authenticated, setFollowed }) {
+export default function Card({ pet, authenticated }) {
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -14,11 +14,13 @@ export default function Card({ pet, authenticated, setFollowed }) {
     }
 
     function handleFollow() {
-        setFollowed(f => [...f, pet.id]);
 
         fetch("http://localhost:8080/follow", {
             method: 'POST',
             credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: pet.id
         })
         .then(res => res.text())

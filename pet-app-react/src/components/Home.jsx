@@ -1,6 +1,6 @@
 import PetContent from "./PetContent.jsx";
 
-export default function Home({ token, authenticated, setFollowed }) {
+export default function Home({ token, authenticated }) {
 
     return (
         <div>
@@ -8,7 +8,6 @@ export default function Home({ token, authenticated, setFollowed }) {
                 token={token} 
                 type="" 
                 authenticated={authenticated}
-                setFollowed={setFollowed}
             />
         </div>
     );

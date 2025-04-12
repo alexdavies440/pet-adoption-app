@@ -2,6 +2,9 @@ package com.example.pet_app.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +13,7 @@ public class MyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank
     private String username;
@@ -18,7 +21,8 @@ public class MyUser {
     @NotBlank
     private String password;
 
-    private Set<Long> followedPets;
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Pet> followedPets = new HashSet<>();
 
     public MyUser() {}
 
@@ -27,7 +31,7 @@ public class MyUser {
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,11 +72,16 @@ public class MyUser {
         return Objects.hashCode(id);
     }
 
-    public Set<Long> getFollowedPets() {
+    @OneToMany(mappedBy = "my_user", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Pet> getFollowedPets() {
         return followedPets;
     }
 
-    public void setFollowedPets(Set<Long> followedPets) {
+    public void setFollowedPets(Set<Pet> followedPets) {
         this.followedPets = followedPets;
+    }
+
+    public void addFollowedPet(Pet newPet) {
+        followedPets.add(newPet);
     }
 }

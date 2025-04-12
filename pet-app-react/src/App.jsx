@@ -15,7 +15,7 @@ function App() {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [token, setToken] = useState("");
-  const [followed, setFollowed] = useState([]);
+  // const [followed, setFollowed] = useState([]);
 
   useEffect(() => {
     generateBearerToken();
@@ -65,7 +65,6 @@ function App() {
             element={<Home
               token={token}
               authenticated={authenticated}
-              setFollowed={setFollowed}
             />}
           />
           <Route
@@ -90,7 +89,6 @@ function App() {
             element={<Profile
               authenticated={authenticated}
               token={token}
-              followed={followed}
             />}
           />
         </Routes>
