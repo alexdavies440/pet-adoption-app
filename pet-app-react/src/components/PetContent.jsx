@@ -11,6 +11,7 @@ export default function PetContent({ token, authenticated, setFollowed }) {
     const [location, setLocation] = useState("");
     const [distance, setDistance] = useState("");
     const [petName, setPetName] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getAllPets();
@@ -40,7 +41,10 @@ export default function PetContent({ token, authenticated, setFollowed }) {
             }
         })
             .then(res => res.json())
-            .then(data => setPets(data.animals));
+            .then(data => setPets(data.animals))
+            .then(setLoading(l => !l)
+        )
+
     }
 
     function getBreeds(input) {
@@ -125,8 +129,11 @@ export default function PetContent({ token, authenticated, setFollowed }) {
             </form>
 
             <div className="card-collection">
+                {loading && pets.length === 0 &&
+                    <h1 className="loading-message">Loading...</h1>
+                }
                 {
-                    pets.length === 0 &&
+                    !loading && pets.length === 0 &&
                     <h1 className="no-results-message">No Results</h1>
                 }
                 {

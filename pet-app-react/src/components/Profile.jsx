@@ -5,8 +5,7 @@ export default function Profile({ authenticated, token }) {
 
     const [username, setUsername] = useState("");
     const [followed, setFollowed] = useState([]);
-    const [followedData, setFollowedData] = useState([]);
-    
+    const [followedData, setFollowedData] = useState([]);    
 
     const navigate = useNavigate();
 
@@ -14,7 +13,7 @@ export default function Profile({ authenticated, token }) {
         authenticate();
         getFollowedPets();
         getFollowedData();
-    }, [token])
+    }, [token, followed.length])
 
     function authenticate() {
         if (authenticated) {
@@ -59,6 +58,7 @@ export default function Profile({ authenticated, token }) {
         }
     }
 
+
     return (
         <div className="profile">
 
@@ -67,11 +67,14 @@ export default function Profile({ authenticated, token }) {
             </div>
             <div>
                 <h2>Following</h2>
+                {followedData.length !== followed.length &&
+                <h3>Loading...</h3>
+                }
                 {followedData.length === 0 &&
                 <h3>You are not following any pets</h3>
                 }
                  <ul>
-                    {followedData && followedData.map((pet) => (
+                    {followedData.length === followed.length && followedData.map((pet) => (
                         <a href={pet.url} target="_blank">
                             <li key={pet.id}>
                                 {pet.name}

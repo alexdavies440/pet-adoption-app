@@ -255,6 +255,12 @@ li {
   margin-left: 0.5rem;
 }
 
+.loading-message {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+}
+
 
 
 
