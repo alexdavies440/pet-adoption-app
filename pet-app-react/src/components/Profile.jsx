@@ -58,7 +58,6 @@ export default function Profile({ authenticated, token }) {
         }
     }
 
-
     return (
         <div className="profile">
 
@@ -70,14 +69,16 @@ export default function Profile({ authenticated, token }) {
                 {followedData.length !== followed.length &&
                 <h3>Loading...</h3>
                 }
-                {followedData.length === 0 &&
+                {followed.length === 0 && 
                 <h3>You are not following any pets</h3>
                 }
                  <ul>
                     {followedData.length === followed.length && followedData.map((pet) => (
                         <a href={pet.url} target="_blank">
                             <li key={pet.id}>
-                                {pet.name}
+                                {pet.name} - {"Remove"}
+                                <br />
+                                <img className="pet-photo" src={pet.primary_photo_cropped.small} alt="" />
                             </li>
                         </a>
                     ))}

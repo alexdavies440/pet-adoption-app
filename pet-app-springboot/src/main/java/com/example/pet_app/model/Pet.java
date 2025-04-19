@@ -10,6 +10,9 @@ import java.util.Objects;
 public class Pet {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Long petId;
 
     @ManyToOne

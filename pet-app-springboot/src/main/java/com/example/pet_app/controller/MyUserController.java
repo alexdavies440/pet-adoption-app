@@ -50,7 +50,7 @@ public class MyUserController {
             Pet newPet = new Pet(petId, myUser);
             myUser.addFollowedPet(newPet);
             myUserRepository.save(myUser);
-            petRepository.save(newPet);
+//            petRepository.save(newPet);
 
             response = "Following pet# " + petId;
         }
