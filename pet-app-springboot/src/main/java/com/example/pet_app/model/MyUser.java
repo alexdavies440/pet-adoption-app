@@ -86,4 +86,6 @@ public class MyUser {
     public void addFollowedPet(Pet newPet) {
         followedPets.add(newPet);
     }
+
+    public void removeFollowedPet(Pet pet) { followedPets.remove(pet); }
 }
