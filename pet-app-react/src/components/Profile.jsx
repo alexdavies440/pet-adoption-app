@@ -58,6 +58,15 @@ export default function Profile({ authenticated, token }) {
         }
     }
 
+    function handleNullPhoto(photo) {
+        if (photo === null) {
+            return "/src/assets/pet-placeholder-img.jpg"
+        }
+        else {
+            return photo.small;
+        }
+    }
+
     return (
         <div className="profile">
 
@@ -78,7 +87,7 @@ export default function Profile({ authenticated, token }) {
                             <li key={pet.id}>
                                 {pet.name} - {"Remove"}
                                 <br />
-                                <img className="pet-photo" src={pet.primary_photo_cropped.small} alt="" />
+                                <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt="pet photo" />
                             </li>
                         </a>
                     ))}
