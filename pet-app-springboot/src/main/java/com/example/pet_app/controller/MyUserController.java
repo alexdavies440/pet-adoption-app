@@ -72,19 +72,20 @@ public class MyUserController {
 
     @PostMapping("/unfollow")
     public String unfollowPet(@RequestBody Long petId, Principal principal) {
-        String response = "";
+
+        String response = "...";
         Optional<MyUser> optUser = myUserRepository.findByUsername(principal.getName());
+        Optional<Pet> optPet = petRepository.findByPetId(petId);
 
         if (optUser.isPresent()) {
             MyUser myUser = optUser.get();
-            Optional<Pet> pet = petRepository.findById(petId);
-
-            if (pet.isPresent()) {
-                myUser.removeFollowedPet(pet.get());
+            if (optPet.isPresent()) {
+                Pet pet = optPet.get();
+                myUser.removeFollowedPet(pet);
                 myUserRepository.save(myUser);
                 response = "Unfollowed pet# " + petId;
             }
-            
+
         }
         return response;
     }

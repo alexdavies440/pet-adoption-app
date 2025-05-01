@@ -68,6 +68,7 @@ export default function Profile({ authenticated, token }) {
     }
 
     function unFollowPet(pet) {
+
         fetch("http://localhost:8080/unfollow", {
             method: 'POST',
             credentials: "include",
@@ -77,9 +78,11 @@ export default function Profile({ authenticated, token }) {
             body: pet.id
         })
             .then(res => res.text())
-            .then(data => console.log(data));
+            .then(data => console.log(data))
+            .then(setFollowed(f => f.filter((_, p) => p !== pet.id)))
     }
 
+    console.log(followed);
 
     return (
         <div className="profile">
@@ -97,13 +100,16 @@ export default function Profile({ authenticated, token }) {
                 }
                 <ul>
                     {followedData.length === followed.length && followedData.map((pet) => (
-                        <a href={pet.url} target="_blank">
-                            <li key={pet.id}>
-                                {pet.name} - <button onClick={unFollowPet(pet)}>Remove</button>
-                                <br />
-                                <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt="pet photo" />
-                            </li>
-                        </a>
+
+                        <li key={pet.id}>
+                            <a href={pet.url} target="_blank">
+                                {pet.name}
+                            </a>
+                            <button className="remove-button" onClick={() => unFollowPet(pet)}>Remove</button>
+                            <br />
+                            <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt="pet photo" />
+                        </li>
+
                     ))}
                 </ul>
             </div>

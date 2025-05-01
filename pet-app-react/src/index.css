@@ -213,6 +213,12 @@ button:hover {
   background-color: rgb(137, 190, 197);
 }
 
+button.remove-button {
+  font-size: 0.75rem;
+  padding: 0.25rem;
+  margin-left: 1rem;
+}
+
 .no-results-message {
   max-height: fit-content;
   background-color: white;
