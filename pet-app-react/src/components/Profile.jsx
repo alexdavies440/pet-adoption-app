@@ -79,8 +79,9 @@ export default function Profile({ authenticated, token }) {
         })
             .then(res => res.text())
             .then(data => console.log(data))
-            // .then(followed.splice(followed.indexOf(pet.id), 1))
-    }
+            .then(setFollowed(f => f.splice(f.indexOf(pet.id))))
+            .then(getFollowedData())            
+        }
 
     return (
         <div className="profile">
