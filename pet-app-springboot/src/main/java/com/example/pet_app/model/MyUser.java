@@ -87,5 +87,5 @@ public class MyUser {
         followedPets.add(newPet);
     }
 
-    public void removeFollowedPet(Pet pet) { followedPets.remove(pet); }
+//    public void removeFollowedPet(Pet pet) { followedPets.remove(pet); }
 }

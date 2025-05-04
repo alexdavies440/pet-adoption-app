@@ -79,10 +79,8 @@ export default function Profile({ authenticated, token }) {
         })
             .then(res => res.text())
             .then(data => console.log(data))
-            .then(setFollowed(f => f.filter((_, p) => p !== pet.id)))
+            // .then(followed.splice(followed.indexOf(pet.id), 1))
     }
-
-    console.log(followed);
 
     return (
         <div className="profile">

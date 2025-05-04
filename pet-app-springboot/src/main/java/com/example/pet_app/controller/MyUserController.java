@@ -47,12 +47,18 @@ public class MyUserController {
 
         if (optUser.isPresent()) {
             MyUser myUser = optUser.get();
-            Pet newPet = new Pet(petId, myUser);
-            myUser.addFollowedPet(newPet);
-            myUserRepository.save(myUser);
-//            petRepository.save(newPet);
+            Optional<Pet> optPet = petRepository.findByPetIdAndFollowerId(petId, myUser.getId());
 
-            response = "Following pet# " + petId;
+            if (optPet.isPresent() && optPet.get().getFollower().equals(myUser)) {
+                response = "Already following this pet";
+            }
+            else {
+                Pet newPet = new Pet(petId, myUser);
+                myUser.addFollowedPet(newPet);
+                myUserRepository.save(myUser);
+                response = "Following pet# " + petId;
+            }
+
         }
         return response;
     }
@@ -75,14 +81,13 @@ public class MyUserController {
 
         String response = "...";
         Optional<MyUser> optUser = myUserRepository.findByUsername(principal.getName());
-        Optional<Pet> optPet = petRepository.findByPetId(petId);
 
         if (optUser.isPresent()) {
             MyUser myUser = optUser.get();
-            if (optPet.isPresent()) {
+            Optional<Pet> optPet = petRepository.findByPetIdAndFollowerId(petId, myUser.getId());
+            if (optPet.isPresent() && optPet.get().getFollower().equals(myUser)) {
                 Pet pet = optPet.get();
-                myUser.removeFollowedPet(pet);
-                myUserRepository.save(myUser);
+                petRepository.delete(pet);
                 response = "Unfollowed pet# " + petId;
             }
 
