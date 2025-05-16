@@ -42,6 +42,8 @@ export default function Profile({ authenticated, token }) {
 
     function getFollowedData() {
 
+        setFollowedData(() => []);
+
         for (let i = 0; i < followed.length; i++) {
             // For each item in followed, fetch that pet data using petId and spread to followedData to be mapped
             let petId = followed[i];
@@ -79,9 +81,13 @@ export default function Profile({ authenticated, token }) {
         })
             .then(res => res.text())
             .then(data => console.log(data))
-            .then(setFollowed(f => f.splice(f.indexOf(pet.id))))
-            .then(getFollowedData())            
+           
+            getFollowedPets();
+            getFollowedData();
         }
+
+        console.log(followed.length)
+        console.log(followedData.length)
 
     return (
         <div className="profile">
@@ -91,9 +97,9 @@ export default function Profile({ authenticated, token }) {
             </div>
             <div>
                 <h2>Following</h2>
-                {followedData.length !== followed.length &&
+                {/* {followedData.length !== followed.length &&
                     <h3>Loading...</h3>
-                }
+                } */}
                 {followed.length === 0 &&
                     <h3>You are not following any pets</h3>
                 }
