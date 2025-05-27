@@ -13,7 +13,7 @@ export default function Profile({ authenticated, token }) {
         authenticate();
         getFollowedPets();
         getFollowedData();
-    }, [token, followed.length])
+    }, [token, followed.length, setFollowed])
 
     function authenticate() {
         if (authenticated) {
@@ -43,8 +43,7 @@ export default function Profile({ authenticated, token }) {
     function getFollowedData() {
 
         // Resets arr since it is populated through iteration
-        // setFollowedData(() => []);
-        let updatedFollowed = [];
+        setFollowedData(() => []);
 
         for (let i = 0; i < followed.length; i++) {
             // For each item in followed, fetch that pet data using petId and spread to followedData to be mapped
@@ -55,11 +54,11 @@ export default function Profile({ authenticated, token }) {
                 }
             })
                 .then(res => res.json())
-                .then(data => updatedFollowed.push(data.animal))
+                .then(data => setFollowedData(fd => [...fd, data.animal]))
         }
 
-        setFollowedData(updatedFollowed);
-        console.log(updatedFollowed);
+        console.log(followed);
+        console.log(followedData);
     }
 
     function handleNullPhoto(photo) {
@@ -83,11 +82,12 @@ export default function Profile({ authenticated, token }) {
         })
             .then(res => res.text())
             .then(data => console.log(data))
-
-
+            .then(setFollowed(f => f.filter((i) => (i !== pet.id))))
+            
+            console.log(followed);
     }
 
-    function displayPets(data) {
+    function displayFollowedPets(data) {
 
         return (
             data.map((pet) => (
@@ -96,12 +96,7 @@ export default function Profile({ authenticated, token }) {
                     <a href={pet.url} target="_blank">
                         {pet.name}
                     </a>
-                    <button className="remove-button" onClick={() => {
-                        unFollowPet(pet);
-                        getFollowedPets();
-                        getFollowedData();
-                    }
-                    }>Remove</button>
+                    <button className="remove-button" onClick={() => unFollowPet(pet)}>Remove</button>
                     <br />
                     <img className="pet-photo" src={handleNullPhoto(pet.primary_photo_cropped)} alt="pet photo" />
                 </li>
@@ -109,6 +104,9 @@ export default function Profile({ authenticated, token }) {
             ))
         );
     }
+
+    console.log(followed.length);
+    console.log(followedData.length);
 
     return (
         <div className="profile">
@@ -125,7 +123,7 @@ export default function Profile({ authenticated, token }) {
                     <h3>You are not following any pets</h3>
                 }
                 <ul>
-                    {followedData.length === followed.length && displayPets(followedData)}
+                    {displayFollowedPets(followedData)}
                 </ul>
             </div>
         </div>

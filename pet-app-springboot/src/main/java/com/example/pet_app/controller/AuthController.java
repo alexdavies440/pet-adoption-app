@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.Optional;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
@@ -27,6 +27,15 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
+    public String generateVerificationCode() {
+        String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345678911121314151617181920abcdefghijklmnopqrstuvxyz";
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 25; i++) {
+            code.append(alphaNumericString.charAt((int) Math.floor(Math.random() * 81)));
+        }
+        return code.toString();
+    }
+
     @PostMapping("/register")
     public String registerNewUser(@RequestBody @Valid RegisterDto registerDto) {
 
@@ -34,6 +43,8 @@ public class AuthController {
         String email = registerDto.getEmail();
         String password = registerDto.getPassword();
         String verifyPassword = registerDto.getVerifyPassword();
+        String verificationCode = generateVerificationCode();
+
 
         Optional<MyUser> optUser = myUserRepository.findByUsername(registerDto.getUsername());
 
@@ -48,7 +59,7 @@ public class AuthController {
             emailService.sendEmail(
                     "Thank You for Joining Wishbone!",
                     email,
-                    "Hello!"
+                    "Welcome, " + username + ". Your security code is " + verificationCode
             );
             return "";
         }
